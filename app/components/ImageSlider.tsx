@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Galleria } from "primereact/galleria";
 import { getUnsplashImage } from "../utils/getUnsplash";
+import Image from "next/image";
 
 export default function ImageSlider() {
   const [images, setImages] = useState();
@@ -20,11 +21,28 @@ export default function ImageSlider() {
       thumb: string;
     };
   }) => {
+    // return (
+    //   <div
+    //     style={{ backgroundImage: `url(${item.urls.full})`, width: "100vw" }}
+    //     className="bg-no-repeat bg-center bg-cover h-[calc(100vh-76px)]"
+    //   />
+    // );
+
+    const GalleriaItem = () => {
+      return (
+        <Image
+          src={item.urls.full}
+          alt={"Image"}
+          fill
+          objectFit={"cover"}
+          className={"animate-fade-in"}
+        />
+      );
+    };
     return (
-      <div
-        style={{ backgroundImage: `url(${item.urls.full})`, width: "100vw" }}
-        className="bg-no-repeat bg-center bg-cover h-[calc(100vh-76px)]"
-      />
+      <div className={"h-[calc(100vh-76px)] w-full relative"}>
+        <GalleriaItem />
+      </div>
     );
   };
 
@@ -39,10 +57,11 @@ export default function ImageSlider() {
       item={itemTemplate}
       autoPlay
       transitionInterval={5000}
-      pt={{
-        nextItemButton: { className: "rounded-[2em]" },
-        previousItemButton: { className: "rounded-[2em]" },
-      }}
+      className={"overflow-hidden"}
+      // pt={{
+      //   nextItemButton: { className: "rounded-[2em]" },
+      //   previousItemButton: { className: "rounded-[2em]" },
+      // }}
     />
   );
 }

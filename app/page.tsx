@@ -11,15 +11,17 @@ export default function Home() {
       <ImageSlider />
       <section className="flex justify-center p-8 gap-4 bg-slate-100/55">
         {[0, 1, 2, 3, 4, 5].map((item) => (
-          <CategoryCard key={item} />
+          <CategoryCard item={item} key={item} />
         ))}
       </section>
       <section className="flex flex-col items-center">
-        <h2 className="pt-8 text-4xl font-bold">Explore and aquire your desired products now</h2>
+        <h2 className="pt-8 text-4xl font-bold">
+          Explore and aquire your desired products now
+        </h2>
         <div className="flex flex-wrap justify-center gap-6 p-8">
-        {[0,1,2,3].map( item => (
-          <MainCard key={item} />
-        ))}
+          {[0, 1, 2, 3].map((item) => (
+            <MainCard item={item} key={item} />
+          ))}
         </div>
       </section>
     </main>
