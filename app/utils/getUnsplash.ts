@@ -8,6 +8,10 @@ const unsplash = axios.create({
 });
 
 export const getUnsplashImage = async () => {
-  const { data } = await unsplash.get("/photos");
-  return data;
+  try {
+    const { data } = await unsplash.get("/photos");
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 };

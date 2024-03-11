@@ -10,9 +10,8 @@
   },
   "dependencies": {
     "axios": "^1.6.7",
+    "framer-motion": "^11.0.5",
     "next": "14.1.0",
-    "primeflex": "^3.3.1",
-    "primereact": "^10.3.3",
     "react": "^18",
     "react-dom": "^18"
   },
@@ -21,6 +20,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
+    "daisyui": "^4.6.0",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
     "postcss": "^8",
