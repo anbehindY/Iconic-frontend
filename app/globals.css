@@ -49,3 +49,7 @@
     text-wrap: balance;
   }
 }
+
+.slick-slide > div:nth-child(1) {
+  margin: 30px 40px;
+}
