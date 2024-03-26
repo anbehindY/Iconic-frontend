@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence, easeInOut } from "framer-motion";
-import { on } from "events";
 
 export default function Carousel({ images }: any) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -24,12 +23,6 @@ export default function Carousel({ images }: any) {
     },
     exit: {
       opacity: 0,
-      transition: {
-        duration: 0.4,
-      },
-    },
-    imgHover: {
-      scale: 1.1,
       transition: {
         duration: 0.4,
       },
@@ -69,7 +62,7 @@ export default function Carousel({ images }: any) {
   }, [images.length, currentIndex]);
 
   return (
-    <div className="carousel flex flex-col w-full h-[460px] z-0">
+    <section className="carousel flex flex-col w-full h-[360px] z-0">
       <div className="carousel-images">
         <AnimatePresence>
           <motion.img
@@ -79,7 +72,6 @@ export default function Carousel({ images }: any) {
             animate="visible"
             exit="exit"
             variants={slideVariants}
-            whileHover="imgHover"
           />
         </AnimatePresence>
         <div className="slide_direction">
@@ -121,6 +113,6 @@ export default function Carousel({ images }: any) {
           </motion.div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
