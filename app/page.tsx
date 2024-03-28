@@ -1,11 +1,11 @@
 "use client";
 
-import { getUnsplashImage } from "./utils/getUnsplash";
+import { getUnsplashImage } from "../utils/getUnsplash";
 import React, { useState, useEffect } from "react";
-import Carousel from "./components/mainPage/Carousel";
-import Collections from "./components/mainPage/Collections";
-import Cards from "./components/mainPage/Cards";
-import NewArrivals from "./components/mainPage/NewArrivals";
+import Carousel from "../components/mainPage/Carousel";
+import Collections from "../components/mainPage/Collections";
+import Cards from "../components/mainPage/Cards";
+import NewArrivals from "../components/mainPage/NewArrivals";
 
 export default function Home() {
   const [images, setImages] = useState([]);
@@ -21,7 +21,6 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center w-full">
-      
       {/* Image Carousel */}
       {images && <Carousel images={images} />}
 
@@ -33,7 +32,6 @@ export default function Home() {
 
       {/* New Arrivals */}
       <NewArrivals />
-
     </main>
   );
 }
