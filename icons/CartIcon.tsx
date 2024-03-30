@@ -1,4 +1,4 @@
-export default function ProfileIcon() {
+export default function CartIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -7,13 +7,27 @@ export default function ProfileIcon() {
       viewBox="0 0 24 24"
       style={{ width: "32px", height: "32px" }}
     >
+      <circle
+        xmlns="http://www.w3.org/2000/svg"
+        cx="7.5"
+        cy="18.5"
+        r="1.5"
+        fill="currentColor"
+      />
+      <circle
+        xmlns="http://www.w3.org/2000/svg"
+        cx="16.5"
+        cy="18.5"
+        r="1.5"
+        fill="currentColor"
+      />
       <path
         xmlns="http://www.w3.org/2000/svg"
         stroke="currentColor"
         stroke-linecap="round"
         stroke-linejoin="round"
         stroke-width="2"
-        d="M18 19v-1.25c0-2.071-1.919-3.75-4.286-3.75h-3.428C7.919 14 6 15.679 6 17.75V19m9-11a3 3 0 11-6 0 3 3 0 016 0z"
+        d="M3 5h2l.6 3m0 0L7 15h10l2-7H5.6z"
       />
     </svg>
   );

@@ -1,5 +1,8 @@
 import Link from "next/link";
-import ProfileIcon from "../../icons/ProfileIcon";
+import ProfileIcon from "@/icons/ProfileIcon";
+import { BsCart2 } from "react-icons/bs";
+import CartIcon from "@/icons/CartIcon";
+import SearchIcon from "@/icons/SearchIcon";
 
 export default function NavigationBar() {
   return (
@@ -7,7 +10,7 @@ export default function NavigationBar() {
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
         {/* Navbar */}
-        <div className="w-full navbar bg-base-100 px-10 py-3">
+        <div className="w-full navbar bg-base-100 px-16 py-3">
           <div className="flex-none lg:hidden">
             <label
               htmlFor="my-drawer-3"
@@ -29,97 +32,109 @@ export default function NavigationBar() {
               </svg>
             </label>
           </div>
-          <Link href="/" className="flex-1 px-2 mx-2 font-bold text-3xl">
+          <Link href="/" className="px-2 font-bold text-3xl mr-20">
             Iconic
           </Link>
-          <div className="flex-none hidden lg:block w-5/6">
-            <ul className="menu menu-horizontal h-full">
+
+          {/* Mega Menu */}
+          <div className="flex-none hidden lg:block">
+            <ul className="menu lg:menu-horizontal rounded-box h-full">
               {/* Navbar menu content here */}
               <li>
-                <a>Navbar Item 1</a>
-              </li>
-              <li>
-                <a>Navbar Item 2</a>
+                <details>
+                  <summary>Shop</summary>
+                  <ul>
+                    <li>
+                      <a href="#">iPhone</a>
+                    </li>
+                    <li>
+                      <Link href="#">iPad</Link>
+                    </li>
+                    <li>
+                      <Link href="#">Mac</Link>
+                    </li>
+                    <li>
+                      <Link href="#">Watch</Link>
+                    </li>
+                    <li>
+                      <Link href="#">AirPods</Link>
+                    </li>
+                    <li>
+                      <Link href="#">AirTags</Link>
+                    </li>
+                    <li>
+                      <Link href="#">Accessories</Link>
+                    </li>
+                  </ul>
+                </details>
               </li>
               <li>
                 <details>
-                  <summary>Parent item</summary>
+                  <summary>Learn more</summary>
                   <ul className="menu xl:menu-horizontal min-w-max bg-base-200 rounded-box z-10">
                     <li>
-                      <a>Solutions</a>
+                      <Link href={"#"}>IPHONE</Link>
                       <ul>
-                        <li>
-                          <a>Design</a>
-                        </li>
-                        <li>
-                          <a>Development</a>
-                        </li>
-                        <li>
-                          <a>Hosting</a>
-                        </li>
-                        <li>
-                          <a>Domain register</a>
-                        </li>
+                        <li><Link href={'#'}>lorem</Link></li>
+                        <li><Link href={'#'}>lorem</Link></li>
+                        <li><Link href={'#'}>lorem</Link></li>
+                        <li><Link href={'#'}>lorem</Link></li>
                       </ul>
                     </li>
                     <li>
-                      <a>Enterprise</a>
+                      <Link href={"#"}>IPAD</Link>
                       <ul>
-                        <li>
-                          <a>CRM software</a>
-                        </li>
-                        <li>
-                          <a>Marketing management</a>
-                        </li>
-                        <li>
-                          <a>Security</a>
-                        </li>
-                        <li>
-                          <a>Consulting</a>
-                        </li>
+                        <li><Link href={'#'}>lorem</Link></li>
+                        <li><Link href={'#'}>lorem</Link></li>
+                        <li><Link href={'#'}>lorem</Link></li>
+                        <li><Link href={'#'}>lorem</Link></li>
                       </ul>
                     </li>
                     <li>
-                      <a>Products</a>
+                      <Link href={"#"}>MAC</Link>
                       <ul>
-                        <li>
-                          <a>UI Kit</a>
-                        </li>
-                        <li>
-                          <a>Wordpress themes</a>
-                        </li>
-                        <li>
-                          <a>Wordpress plugins</a>
-                        </li>
-                        <li>
-                          <a>Open source</a>
-                        </li>
+                        <li><Link href={'#'}>lorem</Link></li>
+                        <li><Link href={'#'}>lorem</Link></li>
+                        <li><Link href={'#'}>lorem</Link></li>
+                        <li><Link href={'#'}>lorem</Link></li>
                       </ul>
                     </li>
                     <li>
-                      <a>Company</a>
+                      <Link href={"#"}>APPLE WATCH</Link>{" "}
                       <ul>
-                        <li>
-                          <a>About us</a>
-                        </li>
-                        <li>
-                          <a>Contact us</a>
-                        </li>
-                        <li>
-                          <a>Privacy policy</a>
-                        </li>
-                        <li>
-                          <a>Press kit</a>
-                        </li>
+                        <li><Link href={'#'}>lorem</Link></li>
+                        <li><Link href={'#'}>lorem</Link></li>
+                        <li><Link href={'#'}>lorem</Link></li>
+                        <li><Link href={'#'}>lorem</Link></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <Link href={"#"}>AIR PODS</Link>{" "}
+                      <ul>
+                        <li><Link href={'#'}>lorem</Link></li>
+                        <li><Link href={'#'}>lorem</Link></li>
+                        <li><Link href={'#'}>lorem</Link></li>
+                        <li><Link href={'#'}>lorem</Link></li>
                       </ul>
                     </li>
                   </ul>
                 </details>
               </li>
+              <li>
+                <a>Collections by category</a>
+              </li>
             </ul>
           </div>
-          <div className="ml-auto">
-            <ProfileIcon />
+          <div className="flex gap-5 ml-auto">
+            <span>
+              <SearchIcon />
+            </span>
+            <span>
+              <ProfileIcon />
+            </span>
+            <span>
+              <CartIcon />
+            </span>
           </div>
         </div>
         {/* Page content here */}

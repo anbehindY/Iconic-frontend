@@ -1,3 +1,5 @@
+'use client';
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import React from "react";
@@ -5,6 +7,7 @@ import Slider from "react-slick";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { CustomArrowProps } from "react-slick";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 function NextArrow(props: CustomArrowProps) {
   const { style, onClick } = props;
@@ -31,6 +34,8 @@ function PrevArrow(props: CustomArrowProps) {
 }
 
 export default function NewArrivals() {
+const router = useRouter();
+
   const settings = {
     infinite: true,
     speed: 500,
@@ -49,6 +54,7 @@ export default function NewArrivals() {
               <div
                 className="card w-96 bg-white shadow-md rounded-lg"
                 key={key}
+                onClick={() => router.push(`/products/${key}`)}
               >
                 <div className="relative w-full h-52">
                   <Image
