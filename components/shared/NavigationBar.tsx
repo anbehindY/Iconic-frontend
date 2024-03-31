@@ -1,8 +1,8 @@
 import Link from "next/link";
 import ProfileIcon from "@/icons/ProfileIcon";
-import { BsCart2 } from "react-icons/bs";
 import CartIcon from "@/icons/CartIcon";
 import SearchIcon from "@/icons/SearchIcon";
+import MegaMenu from "./MegaMenu";
 
 export default function NavigationBar() {
   return (
@@ -10,7 +10,7 @@ export default function NavigationBar() {
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
         {/* Navbar */}
-        <div className="w-full navbar bg-base-100 px-16 py-3">
+        <div className="w-full navbar bg-white px-16 py-3">
           <div className="flex-none lg:hidden">
             <label
               htmlFor="my-drawer-3"
@@ -37,94 +37,9 @@ export default function NavigationBar() {
           </Link>
 
           {/* Mega Menu */}
-          <div className="flex-none hidden lg:block">
-            <ul className="menu lg:menu-horizontal rounded-box h-full">
-              {/* Navbar menu content here */}
-              <li>
-                <details>
-                  <summary>Shop</summary>
-                  <ul>
-                    <li>
-                      <a href="#">iPhone</a>
-                    </li>
-                    <li>
-                      <Link href="#">iPad</Link>
-                    </li>
-                    <li>
-                      <Link href="#">Mac</Link>
-                    </li>
-                    <li>
-                      <Link href="#">Watch</Link>
-                    </li>
-                    <li>
-                      <Link href="#">AirPods</Link>
-                    </li>
-                    <li>
-                      <Link href="#">AirTags</Link>
-                    </li>
-                    <li>
-                      <Link href="#">Accessories</Link>
-                    </li>
-                  </ul>
-                </details>
-              </li>
-              <li>
-                <details>
-                  <summary>Learn more</summary>
-                  <ul className="menu xl:menu-horizontal min-w-max bg-base-200 rounded-box z-10">
-                    <li>
-                      <Link href={"#"}>IPHONE</Link>
-                      <ul>
-                        <li><Link href={'#'}>lorem</Link></li>
-                        <li><Link href={'#'}>lorem</Link></li>
-                        <li><Link href={'#'}>lorem</Link></li>
-                        <li><Link href={'#'}>lorem</Link></li>
-                      </ul>
-                    </li>
-                    <li>
-                      <Link href={"#"}>IPAD</Link>
-                      <ul>
-                        <li><Link href={'#'}>lorem</Link></li>
-                        <li><Link href={'#'}>lorem</Link></li>
-                        <li><Link href={'#'}>lorem</Link></li>
-                        <li><Link href={'#'}>lorem</Link></li>
-                      </ul>
-                    </li>
-                    <li>
-                      <Link href={"#"}>MAC</Link>
-                      <ul>
-                        <li><Link href={'#'}>lorem</Link></li>
-                        <li><Link href={'#'}>lorem</Link></li>
-                        <li><Link href={'#'}>lorem</Link></li>
-                        <li><Link href={'#'}>lorem</Link></li>
-                      </ul>
-                    </li>
-                    <li>
-                      <Link href={"#"}>APPLE WATCH</Link>{" "}
-                      <ul>
-                        <li><Link href={'#'}>lorem</Link></li>
-                        <li><Link href={'#'}>lorem</Link></li>
-                        <li><Link href={'#'}>lorem</Link></li>
-                        <li><Link href={'#'}>lorem</Link></li>
-                      </ul>
-                    </li>
-                    <li>
-                      <Link href={"#"}>AIR PODS</Link>{" "}
-                      <ul>
-                        <li><Link href={'#'}>lorem</Link></li>
-                        <li><Link href={'#'}>lorem</Link></li>
-                        <li><Link href={'#'}>lorem</Link></li>
-                        <li><Link href={'#'}>lorem</Link></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </details>
-              </li>
-              <li>
-                <a>Collections by category</a>
-              </li>
-            </ul>
-          </div>
+          <MegaMenu />
+
+          {/* Prifile tab */}
           <div className="flex gap-5 ml-auto">
             <span>
               <SearchIcon />
