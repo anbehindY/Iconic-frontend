@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -34,7 +34,7 @@ function PrevArrow(props: CustomArrowProps) {
 }
 
 export default function NewArrivals() {
-const router = useRouter();
+  const router = useRouter();
 
   const settings = {
     infinite: true,
@@ -52,7 +52,7 @@ const router = useRouter();
           {[1, 2, 3, 4, 5].map((key) => {
             return (
               <div
-                className="card w-96 bg-white shadow-md rounded-lg"
+                className="card w-96 bg-white shadow-md rounded-lg group"
                 key={key}
                 onClick={() => router.push(`/products/${key}`)}
               >
@@ -66,6 +66,12 @@ const router = useRouter();
                       borderRadius: "0.5rem 0.5rem 0 0",
                     }}
                   />
+                  <button
+                    type="button"
+                    className="border-2 text-xs font-medium border-black rounded-full p-2 absolute bottom-0 right-2 z-50 invisible opacity-0 group-hover:visible group-hover:opacity-100 group-hover:-translate-y-2 transition-all translate-y-0 duration-300 ease-in-out"
+                  >
+                    + Quick add
+                  </button>
                 </div>
                 <div className="card-body">
                   <h2 className="text-base font-medium">
