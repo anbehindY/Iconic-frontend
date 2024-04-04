@@ -12,6 +12,8 @@ const nextConfig = {
   },
   env: {
     UNSPLASH_ACCESS_KEY: process.env.UNSPLASH_ACCESS_KEY,
+    API_URL: process.env.API_URL,
+    STORAGE_URL: process.env.STORAGE_URL,
   },
 };
 

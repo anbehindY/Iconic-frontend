@@ -38,7 +38,7 @@ export default function Carousel({ images }: any) {
   const handleNext = () => {
     setDirection("right");
     setCurrentIndex((prevIndex) =>
-      prevIndex + 1 === images.length ? 0 : prevIndex + 1
+      prevIndex + 1 === images.length ? 0 : prevIndex + 1,
     );
   };
 
@@ -46,7 +46,7 @@ export default function Carousel({ images }: any) {
     setDirection("left");
 
     setCurrentIndex((prevIndex) =>
-      prevIndex - 1 < 0 ? images.length - 1 : prevIndex - 1
+      prevIndex - 1 < 0 ? images.length - 1 : prevIndex - 1,
     );
   };
 
@@ -54,7 +54,7 @@ export default function Carousel({ images }: any) {
     const interval = setInterval(() => {
       setDirection("right");
       setCurrentIndex((prevIndex) =>
-        prevIndex + 1 === images.length ? 0 : prevIndex + 1
+        prevIndex + 1 === images.length ? 0 : prevIndex + 1,
       );
     }, 8000);
 
@@ -62,7 +62,7 @@ export default function Carousel({ images }: any) {
   }, [images.length, currentIndex]);
 
   return (
-    <section className="carousel flex flex-col w-full h-[360px] z-0">
+    <section className="carousel flex flex-col w-full h-[520px] z-0">
       <div className="carousel-images">
         <AnimatePresence>
           <motion.img
@@ -79,7 +79,7 @@ export default function Carousel({ images }: any) {
           <motion.div
             variants={slidersVariants}
             whileHover="hover"
-            className="w-10 h-10 rounded-full absolute top-0 bottom-0 left-2 my-auto flex justify-center items-center"
+            className="w-10 h-10 cursor-pointer rounded-full absolute top-0 bottom-0 left-2 my-auto flex justify-center items-center"
             onClick={handlePrevious}
           >
             <svg
@@ -97,7 +97,7 @@ export default function Carousel({ images }: any) {
           <motion.div
             variants={slidersVariants}
             whileHover="hover"
-            className="w-10 h-10 rounded-full absolute top-0 bottom-0 right-2 my-auto flex justify-center items-center"
+            className="w-10 h-10 cursor-pointer rounded-full absolute top-0 bottom-0 right-2 my-auto flex justify-center items-center"
             onClick={handleNext}
           >
             <svg

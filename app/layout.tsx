@@ -1,25 +1,26 @@
+import React from "react";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import NavigationBar from "../components/shared/NavigationBar";
 import Footer from "../components/shared/Footer";
+import QueryWrapper from "@/components/providers/QueryWrapper";
+import ToastWrapper from "@/components/providers/ToastWrapper";
+import StoreProvider from "@/components/providers/StoreProvider";
+import useGetAllCollections from "@/hooks/queryHooks/useGetAllCollections";
+import MainLayout from "@/components/shared/MainLayout";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-poppins",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Iconic",
   description: "E-commerce website for Iconic",
 };
-
-function MainLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <main>
-      <NavigationBar />
-      {children}
-      <Footer />
-    </main>
-  );
-}
 
 export default function RootLayout({
   children,
@@ -28,9 +29,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-theme="cupcake">
-      <body className={`${inter.className} antialiased`}>
-        <MainLayout>{children}</MainLayout>
-      </body>
+      <QueryWrapper>
+        <StoreProvider>
+          <body className={`${poppins.variable} antialiased`}>
+            <MainLayout>
+              <ToastWrapper>{children}</ToastWrapper>
+            </MainLayout>
+          </body>
+        </StoreProvider>
+      </QueryWrapper>
     </html>
   );
 }
