@@ -12,7 +12,7 @@ export default function Home() {
 
   useEffect(() => {
     getUnsplashImage().then((data) => {
-      const arr = data.map((image: any) => {
+      const arr = data.results.map((image: any) => {
         return image.urls.regular;
       });
       setImages(arr);

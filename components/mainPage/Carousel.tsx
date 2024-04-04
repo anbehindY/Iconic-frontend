@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence, easeInOut } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Carousel({ images }: any) {
   const [currentIndex, setCurrentIndex] = useState(0);
