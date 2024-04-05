@@ -8,6 +8,11 @@ import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { CustomArrowProps } from "react-slick";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { NewArrivalProduct } from "@/types/products.types";
+
+type NewArrivalsProps = {
+  data: NewArrivalProduct[];
+};
 
 function NextArrow(props: CustomArrowProps) {
   const { style, onClick } = props;
@@ -33,7 +38,7 @@ function PrevArrow(props: CustomArrowProps) {
   );
 }
 
-export default function NewArrivals() {
+export default function NewArrivals({ data }: { data: NewArrivalProduct[] }) {
   const router = useRouter();
 
   const settings = {
@@ -49,16 +54,22 @@ export default function NewArrivals() {
       <h2 className="font-bold text-5xl ml-10 mb-5">New Arrivals</h2>
       <div className="slider-container">
         <Slider {...settings}>
-          {[1, 2, 3, 4, 5].map((key) => {
+          {data.map((item) => {
             return (
               <div
-                className="card w-96 bg-white shadow-md rounded-lg group"
-                key={key}
-                onClick={() => router.push(`/products/${key}`)}
+                className="card bg-white shadow-light m-0 p-0 w-[400px] rounded-lg group"
+                key={item.id}
+                onClick={() => router.push(`/products/${item.product.id}`)}
               >
-                <div className="relative w-full h-52">
+                <div className="relative w-full h-40">
                   <Image
-                    src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+                    src={
+                      process.env.STORAGE_URL +
+                      "/" +
+                      item.product.images.find(
+                        (image) => image.color === item.color,
+                      )!.imageId
+                    }
                     alt="Shoes"
                     fill
                     style={{
@@ -74,13 +85,13 @@ export default function NewArrivals() {
                   </button>
                 </div>
                 <div className="card-body">
-                  <h2 className="text-base font-medium">
-                    Power Treads
-                    <div className="text-purple-700 text-sm absolute top-4 left-4">
-                      NEW
-                    </div>
-                  </h2>
-                  <p className="text-slate-500 font-semibold">1500 Ks</p>
+                  <h2 className="text-base font-medium">{item.product.name}</h2>
+                  <p className="text-slate-500 font-semibold">
+                    {item.price} Ks
+                  </p>
+                </div>
+                <div className="text-purple-700 text-sm absolute top-4 left-4">
+                  NEW
                 </div>
               </div>
             );

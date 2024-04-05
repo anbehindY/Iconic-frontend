@@ -26,7 +26,7 @@ export default function MegaMenu({ collections }: MegaMenuProps) {
                         </li>
                       ))
                     ) : (
-                      <span>No products yet!</span>
+                      <span>Coming soon!</span>
                     )}
                   </ul>
                 </div>

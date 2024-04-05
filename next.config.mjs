@@ -8,6 +8,9 @@ const nextConfig = {
       {
         hostname: "images.unsplash.com",
       },
+        {
+            hostname: "iconic.sgp1.digitaloceanspaces.com",
+        },
     ],
   },
   env: {

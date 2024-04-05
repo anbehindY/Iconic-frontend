@@ -10,6 +10,7 @@ import { IoArrowDownCircleOutline } from "react-icons/io5";
 import useGetAllCollections from "@/hooks/queryHooks/useGetAllCollections";
 import LoadingPage from "@/app/loading";
 import ErrorPage from "@/app/error";
+import useGetNewArrivals from "@/hooks/queryHooks/useGetNewArrivals";
 
 export default function Home() {
   // const [images, setImages] = useState([]);
@@ -33,9 +34,13 @@ export default function Home() {
 
   const GetAllCollectionsQuery = useGetAllCollections();
 
-  if (GetAllCollectionsQuery.isPending) return <LoadingPage />;
+  const GetNewArrivalsQuery = useGetNewArrivals();
 
-  if (GetAllCollectionsQuery.isError) return <ErrorPage />;
+  if (GetAllCollectionsQuery.isPending || GetNewArrivalsQuery.isPending)
+    return <LoadingPage />;
+
+  if (GetAllCollectionsQuery.isError || GetNewArrivalsQuery.isError)
+    return <ErrorPage />;
 
   return (
     <main className="flex flex-col items-center w-full">
@@ -43,12 +48,12 @@ export default function Home() {
       {images && (
         <div className={"relative w-full bg-slate-300/20"}>
           <Carousel images={images} />
-          {/*<IoArrowDownCircleOutline*/}
-          {/*  size={36}*/}
-          {/*  className={*/}
-          {/*    "absolute text-base-content/75 animate-bounce top-full mt-6 left-1/2 translate-x-[50%]"*/}
-          {/*  }*/}
-          {/*/>*/}
+          <IoArrowDownCircleOutline
+            size={36}
+            className={
+              "absolute text-base-content/90 animate-bounce top-full mt-8 left-1/2 translate-x-[50%]"
+            }
+          />
         </div>
       )}
 
@@ -59,7 +64,7 @@ export default function Home() {
       <Cards />
 
       {/* New Arrivals */}
-      <NewArrivals />
+      <NewArrivals data={GetNewArrivalsQuery.data.payload} />
     </main>
   );
 }

@@ -25,6 +25,9 @@ const config: Config = {
       animation: {
         "fade-in": "fade-in 0.5s ease-in",
       },
+      boxShadow: {
+        light: "0px 10.0992px 35.3471px rgba(0, 0, 0, 0.05)",
+      },
     },
   },
   plugins: [require("daisyui")],

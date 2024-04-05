@@ -8,7 +8,7 @@ export default function Collection({ item }: { item: CollectionDto }) {
   const router = useRouter();
   return (
     <div
-      className="card w-44 h-48 bg-base-100 shadow-xl p-6 group"
+      className="card w-44 h-48 bg-base-100 shadow-light cursor-pointer p-6 group"
       key={item.id}
       onClick={() => router.push(`/collections/${item.id}`)}
     >

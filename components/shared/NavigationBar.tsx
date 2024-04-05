@@ -20,7 +20,7 @@ export default function NavigationBar({ collections }: NavigationBarProps) {
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
         {/* Navbar */}
-        <div className="w-full navbar bg-white px-10 lg:px-16 py-4">
+        <div className="w-full navbar bg-white px-10 lg:px-16">
           <div className="flex-none hidden">
             <label
               htmlFor="my-drawer-3"
