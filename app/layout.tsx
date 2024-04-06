@@ -7,7 +7,7 @@ import Footer from "../components/shared/Footer";
 import QueryWrapper from "@/components/providers/QueryWrapper";
 import ToastWrapper from "@/components/providers/ToastWrapper";
 import StoreProvider from "@/components/providers/StoreProvider";
-import useGetAllCollections from "@/hooks/queryHooks/useGetAllCollections";
+import useGetCollections from "@/hooks/queryHooks/useGetCollections";
 import MainLayout from "@/components/shared/MainLayout";
 
 const poppins = Poppins({

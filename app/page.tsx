@@ -7,7 +7,7 @@ import Collections from "../components/mainPage/Collections";
 import Cards from "../components/mainPage/Cards";
 import NewArrivals from "../components/mainPage/NewArrivals";
 import { IoArrowDownCircleOutline } from "react-icons/io5";
-import useGetAllCollections from "@/hooks/queryHooks/useGetAllCollections";
+import useGetCollections from "@/hooks/queryHooks/useGetCollections";
 import LoadingPage from "@/app/loading";
 import ErrorPage from "@/app/error";
 import useGetNewArrivals from "@/hooks/queryHooks/useGetNewArrivals";
@@ -32,7 +32,7 @@ export default function Home() {
     "/images/ipad-hero.webp",
   ];
 
-  const GetAllCollectionsQuery = useGetAllCollections();
+  const GetAllCollectionsQuery = useGetCollections();
 
   const GetNewArrivalsQuery = useGetNewArrivals();
 

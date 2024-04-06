@@ -7,10 +7,10 @@ const getAllCollections = async (): Promise<GetCollectionsResponseDto> => {
   return data;
 };
 
-const useGetAllCollections = () =>
+const useGetCollections = () =>
   useQuery({
     queryKey: ["get-all-collections"],
     queryFn: getAllCollections,
   });
 
-export default useGetAllCollections;
+export default useGetCollections;

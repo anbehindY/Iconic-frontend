@@ -1,6 +1,6 @@
 "use client";
 
-import useGetAllCollections from "@/hooks/queryHooks/useGetAllCollections";
+import useGetCollections from "@/hooks/queryHooks/useGetCollections";
 import NavigationBar from "@/components/shared/NavigationBar";
 import Footer from "@/components/shared/Footer";
 import LoadingPage from "@/app/loading";
@@ -11,7 +11,7 @@ export default function MainLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const GetAllCollectionsQuery = useGetAllCollections();
+  const GetAllCollectionsQuery = useGetCollections();
 
   if (GetAllCollectionsQuery.isPending) return <LoadingPage />;
 

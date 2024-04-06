@@ -23,3 +23,10 @@ export type BasePageableRequestDto<T> = {
   sort: "desc" | "asc";
   order: keyof T;
 };
+
+export enum OrderStatus {
+  PENDING = "Pending",
+  APPROVED = "Approved",
+  CANCELLED = "Cancelled",
+  DELIVERED = "Delivered",
+}
