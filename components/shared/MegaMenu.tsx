@@ -6,7 +6,7 @@ export default function MegaMenu() {
     <nav>
       <ul className="flex items-center justify-center font-semibold">
         <li className="relative group px-5 py-2">
-          <button className="group-hover:opacity-50 cursor-default font-normal">
+          <button className="group-hover:opacity-50 cursor-default font-normal text-[15px]">
             Shop
             <IoIosArrowDown className="inline-block ml-2" />
           </button>
@@ -41,7 +41,7 @@ export default function MegaMenu() {
           </div>
         </li>
         <li className="relative group px-3 py-2">
-          <button className="group-hover:opacity-50 cursor-default font-normal">
+          <button className="group-hover:opacity-50 cursor-default font-normal text-[15px]">
             Learn more
             <IoIosArrowDown className="inline-block ml-2" />
           </button>
@@ -140,7 +140,7 @@ export default function MegaMenu() {
           </div>
         </li>
         <li className="relative group px-3 py-2">
-          <button className="group-hover:opacity-50 cursor-default font-normal">
+          <button className="group-hover:opacity-50 cursor-default font-normal text-[15px]">
             Collections by Category
             <IoIosArrowDown className="inline-block ml-2" />
           </button>
@@ -239,7 +239,7 @@ export default function MegaMenu() {
           </div>
         </li>
         <li className="relative group px-3 py-2">
-          <button className="group-hover:opacity-50 cursor-default font-normal">
+          <button className="group-hover:opacity-50 cursor-default font-normal text-[15px]">
             Promotions
             <IoIosArrowDown className="inline-block ml-2" />
           </button>

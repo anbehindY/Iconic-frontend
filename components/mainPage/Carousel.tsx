@@ -62,7 +62,7 @@ export default function Carousel({ images }: any) {
   }, [images.length, currentIndex]);
 
   return (
-    <section className="carousel flex flex-col w-full h-[360px] z-0">
+    <section className="carousel flex flex-col w-full h-[460px] z-0">
       <div className="carousel-images">
         <AnimatePresence>
           <motion.img
