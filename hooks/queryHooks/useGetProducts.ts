@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 const getProducts = async (
   collection?: string,
 ): Promise<ProductListResponseDto> => {
-  const { data } = await Axios.get("product-variants", {
+  const { data } = await Axios.get("products/all", {
     params: collection && { productType: collection },
   });
   return data;

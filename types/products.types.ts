@@ -32,7 +32,7 @@ export type ProductVariantDto = {
   availability: ProductVariantAvailabilityDto[];
 };
 
-export type ProductDto = {
+export type NewArrivalProductVariantDto = {
   id: string;
   product: {
     id: string;
@@ -48,6 +48,24 @@ export type ProductDto = {
   ram: string;
   storage: string;
   price: number;
+};
+
+export type ProductDto = {
+  id: string;
+  name: string;
+  productType: {
+    id: string;
+    name: string;
+  };
+  keyFeatures: string[];
+  images: ProductImageDto[];
+  processors: string[];
+  rams: string[];
+  storages: string[];
+  createdAt: string;
+  createdBy: string;
+  updatedAt?: string;
+  updatedBy?: string;
 };
 
 export type ProductDetailsDto = {
@@ -69,6 +87,8 @@ export type ProductDetailsDto = {
 
 export type ProductDetailResponseDto = ResponseDto<ProductDetailsDto>;
 
-export type NewArrivalListResponseDto = ResponseDto<ProductDto[]>;
+export type NewArrivalListResponseDto = ResponseDto<
+  NewArrivalProductVariantDto[]
+>;
 
 export type ProductListResponseDto = ResponseDto<ProductDto[]>;

@@ -8,10 +8,10 @@ import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { CustomArrowProps } from "react-slick";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ProductDto } from "@/types/products.types";
+import { NewArrivalProductVariantDto } from "@/types/products.types";
 
 type NewArrivalsProps = {
-  data: ProductDto[];
+  data: NewArrivalProductVariantDto[];
 };
 
 function NextArrow(props: CustomArrowProps) {
@@ -38,7 +38,11 @@ function PrevArrow(props: CustomArrowProps) {
   );
 }
 
-export default function NewArrivals({ data }: { data: ProductDto[] }) {
+export default function NewArrivals({
+  data,
+}: {
+  data: NewArrivalProductVariantDto[];
+}) {
   const router = useRouter();
 
   const settings = {
@@ -49,7 +53,6 @@ export default function NewArrivals({ data }: { data: ProductDto[] }) {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   };
-  console.log({ data });
   return (
     <section className="px-20 py-12 bg-slate-300/20 w-full h-full">
       <h2 className="font-bold text-5xl ml-10 mb-5">New Arrivals</h2>
