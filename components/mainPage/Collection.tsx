@@ -11,7 +11,7 @@ export default function Collection({ name, img }: CollectionProps) {
   const router = useRouter();
   return (
     <div
-      className="card w-44 h-48 bg-base-100 shadow-xl p-6 group"
+      className="card w-48 h-48 bg-base-100 shadow-xl p-6 group"
       key={name}
       onClick={() => router.push(`/collections/${name}`)}
     >
