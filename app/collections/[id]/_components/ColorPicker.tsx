@@ -13,7 +13,7 @@ export default function ColorPicker({ item, active, onClickHanlder }: ColorPicke
   return (
     <div
       className={clsx(
-        "w-12 h-12 p-[2px] rounded-lg relative aspect-square border-2",
+        "w-12 h-12 p-[2px] rounded-lg relative aspect-square border-2 cursor-pointer",
         {
           "border-black": active == item,
           "border-transparent": active != item,
