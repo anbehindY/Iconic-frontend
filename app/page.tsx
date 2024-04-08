@@ -13,17 +13,6 @@ import ErrorPage from "@/app/error";
 import useGetNewArrivals from "@/hooks/queryHooks/useGetNewArrivals";
 
 export default function Home() {
-  // const [images, setImages] = useState([]);
-  //
-  // useEffect(() => {
-  //   getUnsplashImage().then((data) => {
-  //     const arr = data.map((image: any) => {
-  //       return image.urls.regular;
-  //     });
-  //     setImages(arr);
-  //   });
-  // }, []);
-
   const images = [
     "/images/all-products.jpeg",
     "/images/all-products-front.jpeg",

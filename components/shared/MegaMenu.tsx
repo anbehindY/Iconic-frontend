@@ -7,7 +7,7 @@ type MegaMenuProps = {
 };
 export default function MegaMenu({ collections }: MegaMenuProps) {
   return (
-    <nav>
+    <nav className="ml-10">
       <ul className="flex text-sm items-center justify-center font-semibold">
         {collections.map((collection) => (
           <li key={collection.id} className="relative group px-5 py-2">

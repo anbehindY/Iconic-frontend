@@ -16,7 +16,7 @@ export default function Collection({ item }: { item: CollectionDto }) {
         <img src={`/icons/${item.name.toLowerCase()}_collection.avif`} alt="Shoes" />
       </figure>
       <div className="mx-auto mt-auto flex relative">
-        <h2 className="transition-all duration-300 ease-in-out text-sm mr-2 ml-4 whitespace-nowrap group-hover:ml-2">
+        <h2 className="transition-all duration-300 ease-in-out text-sm mr-1 ml-6 whitespace-nowrap group-hover:ml-2">
           {item.name}
         </h2>
         <span className="transition-all duration-500 ease-in-out opacity-0 invisible translate-x-3 group-hover:translate-x-2 group-hover:opacity-100 group-hover:visible">
