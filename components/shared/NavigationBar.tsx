@@ -20,8 +20,8 @@ export default function NavigationBar({ collections }: NavigationBarProps) {
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
         {/* Navbar */}
-        <div className="w-full navbar bg-white px-10 lg:px-16">
-          <div className="flex-none hidden">
+        <div className="w-full navbar bg-white px-16 py-[18px]">
+          <div className="flex-none lg:hidden">
             <label
               htmlFor="my-drawer-3"
               aria-label="open sidebar"
@@ -71,15 +71,6 @@ export default function NavigationBar({ collections }: NavigationBarProps) {
             <button className={"btn btn-ghost btn-circle btn-sm"}>
               <LuShoppingCart size={20} />
             </button>
-            {/*<span>*/}
-            {/*  <SearchIcon />*/}
-            {/*</span>*/}
-            {/*<span>*/}
-            {/*  <ProfileIcon />*/}
-            {/*</span>*/}
-            {/*<span>*/}
-            {/*  <CartIcon />*/}
-            {/*</span>*/}
           </div>
         </div>
         {/* Page content here */}

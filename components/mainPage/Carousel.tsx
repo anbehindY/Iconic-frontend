@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence, easeInOut } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Carousel({ images }: any) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -62,7 +62,7 @@ export default function Carousel({ images }: any) {
   }, [images.length, currentIndex]);
 
   return (
-    <section className="carousel flex flex-col w-full h-[520px] z-0">
+    <section className="carousel flex flex-col w-full h-[460px] z-0">
       <div className="carousel-images">
         <AnimatePresence>
           <motion.img

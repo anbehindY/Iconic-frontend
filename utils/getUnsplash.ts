@@ -9,7 +9,9 @@ const unsplash = axios.create({
 
 export const getUnsplashImage = async () => {
   try {
-    const { data } = await unsplash.get("/photos");
+    const { data } = await unsplash.get(
+      "/search/photos?page=1&query=apple-products"
+    );
     return data;
   } catch (error) {
     console.log(error);
