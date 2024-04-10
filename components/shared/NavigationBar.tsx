@@ -1,9 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import ProfileIcon from "@/icons/ProfileIcon";
-import CartIcon from "@/icons/CartIcon";
-import SearchIcon from "@/icons/SearchIcon";
 import MegaMenu from "./MegaMenu";
 import { FaApple } from "react-icons/fa";
 import { IoMdSearch } from "react-icons/io";

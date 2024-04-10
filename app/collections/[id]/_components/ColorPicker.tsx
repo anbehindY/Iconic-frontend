@@ -4,24 +4,40 @@ import clsx from "clsx";
 import Image from "next/image";
 
 type ColorPickerProps = {
-  item: number;
-  active: number;
+  item: {
+    imageId: string;
+    color: string;
+    colorCode: string;
+  };
+  activeImage: string;
   onClickHanlder: any;
+  isMac?: boolean;
 };
 
-export default function ColorPicker({ item, active, onClickHanlder }: ColorPickerProps) {
+export default function ColorPicker({
+  item,
+  activeImage,
+  onClickHanlder,
+  isMac,
+}: ColorPickerProps) {
   return (
     <div
       className={clsx(
         "w-12 h-12 p-[2px] rounded-lg relative aspect-square border-2 cursor-pointer",
         {
-          "border-black": active == item,
-          "border-transparent": active != item,
+          "border-black": activeImage == item.imageId,
+          "border-transparent": activeImage != item.imageId,
         }
       )}
-      onClick={() => onClickHanlder(item)}
+      onClick={() => onClickHanlder(item.imageId)}
     >
-      <Image src="/dummy_iphone.webp" alt="demo" fill className="rounded-lg" />
+      <Image
+        src={`${process.env.STORAGE_URL}/${item.imageId}`}
+        alt="demo"
+        fill
+        className="rounded-lg"
+        style={isMac ? { objectFit: "contain" } : { objectFit: "cover" }}
+      />
     </div>
   );
 }
