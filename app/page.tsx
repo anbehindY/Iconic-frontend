@@ -1,7 +1,6 @@
 "use client";
 
-import { getUnsplashImage } from "../utils/getUnsplash";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Carousel from "../components/mainPage/Carousel";
 import Collections from "../components/mainPage/Collections";
 import Cards from "../components/mainPage/Cards";
@@ -11,8 +10,11 @@ import useGetCollections from "@/hooks/queryHooks/useGetCollections";
 import LoadingPage from "@/app/loading";
 import ErrorPage from "@/app/error";
 import useGetNewArrivals from "@/hooks/queryHooks/useGetNewArrivals";
+import { useSelector } from "react-redux";
+import { selectUser } from "@/store/slices";
 
 export default function Home() {
+  const userInfo = useSelector(selectUser);
   const images = [
     "/images/all-products.jpeg",
     "/images/all-products-front.jpeg",
@@ -30,6 +32,8 @@ export default function Home() {
 
   if (GetAllCollectionsQuery.isError || GetNewArrivalsQuery.isError)
     return <ErrorPage />;
+
+  console.log("userInfo", userInfo);
 
   return (
     <main className="flex flex-col items-center w-full">

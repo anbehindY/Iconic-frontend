@@ -10,8 +10,8 @@ Axios.defaults.headers.post["Accept"] = "application/json";
 // Add Authorization header in all requests
 Axios.interceptors.request.use(
   (config) => {
-    if (hasCookie("iconic-access-token")) {
-      config.headers["Authorization"] = getCookie("iconic-access-token");
+    if (hasCookie("iconic-fe-token")) {
+      config.headers["Authorization"] = getCookie("iconic-fe-token");
     }
     return config;
   },
