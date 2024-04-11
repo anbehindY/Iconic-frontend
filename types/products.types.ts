@@ -21,6 +21,30 @@ export type ProductVariantAvailabilityDto = {
   quantity: number;
 };
 
+export type ProductVariantPriceDto = {
+  id: string;
+  product: {
+    id: string;
+    name: string;
+    productType: {
+      id: string;
+      name: string;
+    };
+  };
+  color: string;
+  processor: string;
+  ram: string;
+  storage: string;
+  price: number;
+  createdAt: string;
+  createdBy: string;
+  image: {
+    color: string;
+    colorCode: string;
+    imageId: string;
+  };
+};
+
 export type ProductVariantDto = {
   id: string;
   color: string;
@@ -92,3 +116,7 @@ export type NewArrivalListResponseDto = ResponseDto<
 >;
 
 export type ProductListResponseDto = ResponseDto<ProductDto[]>;
+
+export type ProductVariantPriceListResponseDto = ResponseDto<
+  ProductVariantPriceDto[]
+>;
