@@ -29,6 +29,7 @@ export type ProductVariantDto = {
   storage: string;
   price: number;
   inStock: number;
+  image: ProductImageDto;
   availability: ProductVariantAvailabilityDto[];
 };
 

@@ -1,39 +1,39 @@
 "use client";
 
+import { ProductImageDto } from "@/types/products.types";
 import clsx from "clsx";
 import Image from "next/image";
 
 type ColorPickerProps = {
-  item: {
-    imageId: string;
-    color: string;
-    colorCode: string;
-  };
+  imageData: ProductImageDto;
   activeImage: string;
   onClickHanlder: any;
   isMac?: boolean;
+  className?: string;
 };
 
 export default function ColorPicker({
-  item,
+  imageData,
   activeImage,
   onClickHanlder,
   isMac,
+  className,
 }: ColorPickerProps) {
   return (
     <div
       className={clsx(
         "w-12 h-12 p-[2px] rounded-lg relative aspect-square border-2 cursor-pointer",
         {
-          "border-black": activeImage == item.imageId,
-          "border-transparent": activeImage != item.imageId,
-        }
+          "border-black": activeImage == imageData.imageId,
+          "border-transparent": activeImage != imageData.imageId,
+        },
+        className
       )}
-      onClick={() => onClickHanlder(item.imageId)}
+      onClick={() => onClickHanlder(imageData)}
     >
       <Image
-        src={`${process.env.STORAGE_URL}/${item.imageId}`}
-        alt="demo"
+        src={`${process.env.STORAGE_URL}/${imageData.imageId}`}
+        alt={"product image"}
         fill
         className="rounded-lg"
         style={isMac ? { objectFit: "contain" } : { objectFit: "cover" }}

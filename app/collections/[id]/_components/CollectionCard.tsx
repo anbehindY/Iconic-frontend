@@ -4,25 +4,26 @@ import { useState } from "react";
 import ColorPicker from "./ColorPicker";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ProductDto } from "@/types/products.types";
+import { ProductDto, ProductImageDto } from "@/types/products.types";
+
 
 export type CollectionCardProps = {
   productData: ProductDto;
 };
 
 export default function CollectionCard({ productData }: CollectionCardProps) {
-  const [activeImage, setActiveImage] = useState<string>(
-    productData.images[0].imageId || ""
-  );
+  const [activeImage, setActiveImage] = useState<ProductImageDto>();
   const router = useRouter();
   return (
     <div className="w-[350px]">
       <div
         className="relative aspect-square cursor-pointer"
-        onClick={() => router.push(`/products/${productData.name}`)}
+        onClick={() => router.push(`/products/${productData.id}`)}
       >
         <Image
-          src={`${process.env.STORAGE_URL}/${activeImage}`}
+          src={`${process.env.STORAGE_URL}/${
+            activeImage?.imageId || productData.images[0].imageId
+          }`}
           alt="demo"
           fill
           style={{ objectFit: "cover" }}
@@ -30,7 +31,7 @@ export default function CollectionCard({ productData }: CollectionCardProps) {
       </div>
       <div className="flex flex-col gap-3">
         <h3
-          onClick={() => router.push(`/products/${productData.name}`)}
+          onClick={() => router.push(`/products/${productData.id}`)}
           className="cursor-pointer"
         >
           {productData.name}
@@ -40,10 +41,14 @@ export default function CollectionCard({ productData }: CollectionCardProps) {
           {productData.images.map((item, index) => {
             return (
               <ColorPicker
-                item={item}
+                imageData={item}
                 key={index}
-                onClickHanlder={(imageId: string) => setActiveImage(imageId)}
-                activeImage={activeImage}
+                onClickHanlder={(imageData: ProductImageDto) =>
+                  setActiveImage(imageData)
+                }
+                activeImage={
+                  activeImage?.imageId || productData.images[0].imageId
+                }
                 isMac={productData.productType.name === "MacBook"}
               />
             );
