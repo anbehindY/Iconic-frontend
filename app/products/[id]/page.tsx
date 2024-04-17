@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { PiSealCheckFill } from "react-icons/pi";
 import { MdCancel } from "react-icons/md";
 import { RiInformationFill } from "react-icons/ri";
+import { BiChevronDown } from "react-icons/bi";
 
 export default function ProductDetail({ params }: { params: { id: string } }) {
   const [productData, setProductData] = useState<ProductDetailsDto | null>(
@@ -21,27 +22,30 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
 
   const [activeImage, setActiveImage] = useState<ProductImageDto>();
   const [activeStorage, setActiveStorage] = useState<string>();
+  const [activeProcessor, setActiveProcessor] = useState<string>();
   const [quantity, setQuantity] = useState<number>(1);
   const [variant, setVariant] = useState<ProductVariantDto | null>();
   const GetProductData = useGetProductDetails(params.id);
-  const isMac = productData?.name.toLowerCase().includes('macbook') === true;
+
+  const isMac = productData?.name.toLowerCase().includes("macbook") === true;
   useEffect(() => {
     if (GetProductData.isSuccess) {
       console.log("product", GetProductData.data);
       setProductData(GetProductData.data.payload);
       setActiveStorage(GetProductData.data.payload.storages[0]);
       setActiveImage(GetProductData.data.payload.images[0]);
+      setActiveProcessor(GetProductData.data.payload.processors[0]);
     }
   }, [GetProductData.isSuccess]);
 
-  const variantChecker = productData?.variants.some((item) => {
-    return (
-      item.image.color === activeImage?.color && item.storage === activeStorage
-    );
-  });
-
   useEffect(() => {
-    if (productData && variantChecker) {
+    const variantChecker = productData?.variants.some((item) => {
+      return (
+        item.image.color === activeImage?.color &&
+        item.storage === activeStorage
+      );
+    });
+    if (productData && variantChecker && !isMac) {
       const Variant = productData.variants.filter(
         (item) =>
           item.image.color === activeImage?.color &&
@@ -49,11 +53,20 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
       )[0];
       console.log("variant", Variant);
       setVariant(Variant);
+    } else if (productData && isMac) {
+      const Variant = productData.variants.filter(
+        (item) =>
+          item.image.color === activeImage?.color &&
+          item.storage === activeStorage &&
+          item.processor === activeProcessor
+      )[0];
+      console.log("variant", Variant);
+      setVariant(Variant);
     } else {
       setVariant(null);
     }
     setQuantity(1);
-  }, [activeImage, activeStorage, productData]);
+  }, [activeImage, activeStorage, productData, activeProcessor]);
 
   if (GetProductData.isPending) return <div>Loading...</div>;
   if (GetProductData.isError) return <div>Error...</div>;
@@ -69,9 +82,10 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
   };
 
   return (
-    <section className={clsx("px-12 py-12 bg-zinc-100", {"!bg-white": isMac})}>
+    <section
+      className={clsx("px-12 py-12 bg-zinc-100", { "!bg-white": isMac })}
+    >
       <div className="flex">
-
         {/* left section */}
         <div className="w-1/2 flex gap-8">
           <div className="flex flex-col">
@@ -100,7 +114,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
               alt="demo"
               fill
               style={{ objectFit: isMac ? "contain" : "cover" }}
-              />
+            />
           </div>
         </div>
 
@@ -111,7 +125,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
             <p className="mb-2 text-slate-600">Apple</p>
             <h2 className="mb-2 text-4xl font-semibold">{productData.name}</h2>
             <p className="text-fuchsia-600 font-medium text-lg">
-              {productData.variants[0].price} Ks
+              {variant ? `${variant.price} Ks` : "not available!"}
             </p>
           </div>
 
@@ -147,6 +161,39 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
                   })}
               </div>
             </div>
+
+            {/* processor */}
+            {isMac && (
+              <div>
+                <p className="font-medium text-[15px]">
+                  <span className="text-slate-500 text-sm">Processor:</span>{" "}
+                  {activeProcessor}
+                </p>
+                <div className="flex gap-2">
+                  {productData.processors.map((item, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="flex mt-2"
+                        onClick={() => setActiveProcessor(item)}
+                      >
+                        <button
+                          className={clsx(
+                            "px-4 h-12 border border-gray-400 rounded-full transition-all duration-200 ease-in-out",
+                            {
+                              "border-transparent bg-stone-200":
+                                activeProcessor === item,
+                            }
+                          )}
+                        >
+                          {item}
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             {/* storage */}
             <div>
@@ -255,7 +302,9 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
                 <button
                   className="w-full h-12 border-[3px] border-black rounded-full disabled:cursor-not-allowed"
                   disabled={!variant || variant.inStock < quantity}
-                  onClick={() => console.log({variantId: variant?.id, quantity: quantity})}
+                  onClick={() =>
+                    console.log({ variantId: variant?.id, quantity: quantity })
+                  }
                 >
                   Add to cart
                 </button>
@@ -264,7 +313,9 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
                 <button
                   className="w-full h-12 bg-fuchsia-500 text-white rounded-full disabled:cursor-not-allowed"
                   disabled={!variant || variant.inStock < quantity}
-                  onClick={() => console.log({variantId: variant?.id, quantity: quantity})}
+                  onClick={() =>
+                    console.log({ variantId: variant?.id, quantity: quantity })
+                  }
                 >
                   Buy now
                 </button>
@@ -272,6 +323,28 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="mt-20 px-32">
+        <div className="divider " />
+        <div className="flex justify-between items-center">
+          <h2 className="text-2xl font-medium text-zinc-600">Key features</h2>
+          <BiChevronDown className="text-5xl font-semibold text-zinc-600"/>
+        </div>
+        <ul className="mt-10">
+          {productData.keyFeatures.map((item, index) => {
+            return (
+              <li key={index} className="flex gap-3 mt-4 items-start">
+                <div className="h-12 rounded-full flex items-start justify-start">
+                  <RiInformationFill className="text-zinc-700 text-2xl" />
+                </div>
+                <div>
+                  <p className="text-sm">{item}</p>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );
