@@ -2,13 +2,12 @@ import React from "react";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import NavigationBar from "../components/shared/NavigationBar";
-import Footer from "../components/shared/Footer";
 import QueryWrapper from "@/components/providers/QueryWrapper";
 import ToastWrapper from "@/components/providers/ToastWrapper";
 import StoreProvider from "@/components/providers/StoreProvider";
-import useGetCollections from "@/hooks/queryHooks/useGetCollections";
 import MainLayout from "@/components/shared/MainLayout";
+import { headers } from "next/headers";
+import "react-toastify/dist/ReactToastify.css";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -27,14 +26,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isAuthPage = headers().get("referer")?.includes("auth");
+
   return (
     <html lang="en" data-theme="cupcake">
       <QueryWrapper>
         <StoreProvider>
           <body className={`${poppins.variable} antialiased`}>
-            <MainLayout>
-              <ToastWrapper>{children}</ToastWrapper>
-            </MainLayout>
+            <ToastWrapper>
+              <MainLayout>{children}</MainLayout>
+            </ToastWrapper>
           </body>
         </StoreProvider>
       </QueryWrapper>
