@@ -33,7 +33,7 @@ export default function Home() {
   if (GetAllCollectionsQuery.isError || GetNewArrivalsQuery.isError)
     return <ErrorPage />;
 
-  console.log("userInfo", userInfo);
+  // console.log("userInfo", userInfo);
 
   return (
     <main className="flex flex-col items-center w-full">

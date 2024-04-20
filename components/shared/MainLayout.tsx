@@ -5,6 +5,7 @@ import NavigationBar from "@/components/shared/NavigationBar";
 import Footer from "@/components/shared/Footer";
 import LoadingPage from "@/app/loading";
 import ErrorPage from "@/app/error";
+import CartModal from "./CartModal";
 
 export default function MainLayout({
   children,
@@ -21,6 +22,7 @@ export default function MainLayout({
     <main>
       <NavigationBar collections={GetAllCollectionsQuery.data.payload} />
       {children}
+      <CartModal/>
       <Footer />
     </main>
   );

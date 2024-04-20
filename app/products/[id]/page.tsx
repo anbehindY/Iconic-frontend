@@ -14,6 +14,8 @@ import { PiSealCheckFill } from "react-icons/pi";
 import { MdCancel } from "react-icons/md";
 import { RiInformationFill } from "react-icons/ri";
 import { BiChevronDown } from "react-icons/bi";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/store/slices";
 
 export default function ProductDetail({ params }: { params: { id: string } }) {
   const [productData, setProductData] = useState<ProductDetailsDto | null>(
@@ -25,6 +27,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
   const [activeProcessor, setActiveProcessor] = useState<string>();
   const [quantity, setQuantity] = useState<number>(1);
   const [variant, setVariant] = useState<ProductVariantDto | null>();
+  const dispatch = useDispatch();
   const GetProductData = useGetProductDetails(params.id);
 
   const isMac = productData?.name.toLowerCase().includes("macbook") === true;
@@ -302,8 +305,11 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
                 <button
                   className="w-full h-12 border-[3px] border-black rounded-full disabled:cursor-not-allowed"
                   disabled={!variant || variant.inStock < quantity}
-                  onClick={() =>
-                    console.log({ variantId: variant?.id, quantity: quantity })
+                  onClick={() =>{
+                    dispatch(addToCart({ variantId: variant!.id, quantity: quantity }));
+                    (document.getElementById('cart_modal') as HTMLDialogElement).showModal();
+                  }
+                    
                   }
                 >
                   Add to cart
@@ -314,10 +320,10 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
                   className="w-full h-12 bg-fuchsia-500 text-white rounded-full disabled:cursor-not-allowed"
                   disabled={!variant || variant.inStock < quantity}
                   onClick={() =>
-                    console.log({ variantId: variant?.id, quantity: quantity })
+                    dispatch(addToCart({ variantId: variant!.id, quantity: quantity }))
                   }
                 >
-                  Buy now
+                  Log in to buy now
                 </button>
               </div>
             </div>

@@ -6,12 +6,16 @@ import { FaApple } from "react-icons/fa";
 import { IoMdSearch } from "react-icons/io";
 import { LuShoppingCart, LuUser } from "react-icons/lu";
 import { CollectionDto } from "@/types/collections.types";
+import { RootState } from "@/store";
+import { useSelector } from "react-redux";
 
 type NavigationBarProps = {
   collections: CollectionDto[];
 };
 
 export default function NavigationBar({ collections }: NavigationBarProps) {
+  const cartData = useSelector((state: RootState) => state.cart);
+
   return (
     <div className="drawer sticky top-0 z-50">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -65,7 +69,19 @@ export default function NavigationBar({ collections }: NavigationBarProps) {
             <button className={"btn btn-ghost btn-circle btn-sm"}>
               <LuUser size={22} />
             </button>
-            <button className={"btn btn-ghost btn-circle btn-sm"}>
+            <button
+              className={"btn btn-ghost btn-circle btn-sm relative"}
+              onClick={() =>
+                (
+                  document.getElementById("cart_modal") as HTMLDialogElement
+                ).showModal()
+              }
+            >
+              {cartData.cartItems.length > 0 && (
+                <div className="bg-black rounded-full w-4 h-4 text-[10px] text-white font-semibold grid place-items-center absolute top-0 -right-1">
+                  {cartData.cartItems.length}
+                </div>
+              )}
               <LuShoppingCart size={20} />
             </button>
           </div>
