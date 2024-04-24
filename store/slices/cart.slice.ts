@@ -1,7 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@/store";
+import { ProductImageDto } from "@/types/products.types";
 
-type ProductType = { variantId: string; quantity: number };
+type ProductType = {
+  variantId: string;
+  quantity: number;
+  image?: ProductImageDto;
+  name: string;
+  price: number;
+  storage?: string;
+};
 
 type CartStoreType = {
   cartItems: ProductType[];
@@ -30,7 +38,7 @@ export const cartSlice = createSlice({
     },
     removeFromCart: (state, action) => {
       state.cartItems = state.cartItems.filter(
-        (item) => item.variantId !== action.payload.variantId
+        (item) => item.variantId !== action.payload
       );
     },
   },

@@ -22,7 +22,7 @@ export default function MegaMenu({ collections }: MegaMenuProps) {
                     {collection.products.length > 0 ? (
                       collection.products.map((product) => (
                         <li key={product.id}>
-                          <a href={`/products/${product.id}`}>{product.name}</a>
+                          <Link href={`/products/${product.id}`}>{product.name}</Link>
                         </li>
                       ))
                     ) : (

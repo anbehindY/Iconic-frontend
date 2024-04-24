@@ -21,7 +21,7 @@ export default function NavigationBar({ collections }: NavigationBarProps) {
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
         {/* Navbar */}
-        <div className="w-full navbar bg-white px-16 py-[18px]">
+        <div className="w-full navbar bg-white px-16 py-5">
           <div className="flex-none lg:hidden">
             <label
               htmlFor="my-drawer-3"
@@ -64,10 +64,10 @@ export default function NavigationBar({ collections }: NavigationBarProps) {
           {/* Prifile tab */}
           <div className="flex gap-4 ml-auto">
             <button className={"btn btn-ghost btn-circle btn-sm"}>
-              <IoMdSearch size={24} />
+              <IoMdSearch size={28} />
             </button>
             <button className={"btn btn-ghost btn-circle btn-sm"}>
-              <LuUser size={22} />
+              <LuUser size={26} />
             </button>
             <button
               className={"btn btn-ghost btn-circle btn-sm relative"}
@@ -82,7 +82,7 @@ export default function NavigationBar({ collections }: NavigationBarProps) {
                   {cartData.cartItems.length}
                 </div>
               )}
-              <LuShoppingCart size={20} />
+              <LuShoppingCart size={24} />
             </button>
           </div>
         </div>

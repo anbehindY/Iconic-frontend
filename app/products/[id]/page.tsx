@@ -54,7 +54,6 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
           item.image.color === activeImage?.color &&
           item.storage === activeStorage
       )[0];
-      console.log("variant", Variant);
       setVariant(Variant);
     } else if (productData && isMac) {
       const Variant = productData.variants.filter(
@@ -63,7 +62,6 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
           item.storage === activeStorage &&
           item.processor === activeProcessor
       )[0];
-      console.log("variant", Variant);
       setVariant(Variant);
     } else {
       setVariant(null);
@@ -305,12 +303,21 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
                 <button
                   className="w-full h-12 border-[3px] border-black rounded-full disabled:cursor-not-allowed"
                   disabled={!variant || variant.inStock < quantity}
-                  onClick={() =>{
-                    dispatch(addToCart({ variantId: variant!.id, quantity: quantity }));
-                    (document.getElementById('cart_modal') as HTMLDialogElement).showModal();
-                  }
-                    
-                  }
+                  onClick={() => {
+                    dispatch(
+                      addToCart({
+                        variantId: variant!.id,
+                        quantity: quantity,
+                        image: activeImage && activeImage,
+                        name: productData.name,
+                        price: variant!.price,
+                        storage: activeStorage,
+                      })
+                    );
+                    (
+                      document.getElementById("cart_modal") as HTMLDialogElement
+                    ).showModal();
+                  }}
                 >
                   Add to cart
                 </button>
@@ -320,7 +327,8 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
                   className="w-full h-12 bg-fuchsia-500 text-white rounded-full disabled:cursor-not-allowed"
                   disabled={!variant || variant.inStock < quantity}
                   onClick={() =>
-                    dispatch(addToCart({ variantId: variant!.id, quantity: quantity }))
+                    // dispatch(addToCart({ variantId: variant!.id, quantity: quantity }))
+                    console.log("buy now")
                   }
                 >
                   Log in to buy now
@@ -335,7 +343,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
         <div className="divider " />
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-medium text-zinc-600">Key features</h2>
-          <BiChevronDown className="text-5xl font-semibold text-zinc-600"/>
+          <BiChevronDown className="text-5xl font-semibold text-zinc-600" />
         </div>
         <ul className="mt-10">
           {productData.keyFeatures.map((item, index) => {
