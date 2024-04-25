@@ -18,8 +18,8 @@ type FormProps<T extends FieldValues> = Omit<
   onSubmit: T extends undefined
     ? SubmitHandler<T>
     : T extends FieldValues
-      ? SubmitHandler<T>
-      : never;
+    ? SubmitHandler<T>
+    : never;
   onFailed?: () => void;
 };
 
@@ -100,7 +100,7 @@ function TextField<T>({
           name={name}
           className={mergeClassNames(
             "textarea textarea-bordered rounded-md textarea-sm text-sm textarea-primary w-full",
-            className,
+            className
           )}
           {...props}
           ref={field.ref}
@@ -116,7 +116,7 @@ function TextField<T>({
           name={name}
           className={mergeClassNames(
             "input input-bordered rounded-md input-sm !h-[40px] input-primary w-full",
-            className,
+            className
           )}
           {...props}
           ref={field.ref}
@@ -131,7 +131,7 @@ function TextField<T>({
         {fieldState.error && (
           <p
             className={mergeClassNames(
-              "text-sm text-right text-error leading-4",
+              "text-sm text-right text-error leading-4"
             )}
           >
             {fieldState.error.message}
@@ -183,7 +183,7 @@ function Select<T>({
         className={mergeClassNames(
           "select select-primary rounded-md select-sm !h-[40px] w-full text-base",
           !field.value || field.value === placeholder ? "text-gray-400" : "",
-          className,
+          className
         )}
         value={field.value || placeholder}
         onChange={(e) => {
@@ -204,7 +204,7 @@ function Select<T>({
         {fieldState.error && (
           <p
             className={mergeClassNames(
-              "text-sm text-right text-error leading-4",
+              "text-sm text-right text-error leading-4"
             )}
           >
             {fieldState.error.message}
@@ -233,7 +233,7 @@ function SubmitButton({
       type={"submit"}
       className={mergeClassNames(
         "btn btn-primary btn-sm h-10 rounded-md",
-        className,
+        className
       )}
       disabled={disabled}
     >

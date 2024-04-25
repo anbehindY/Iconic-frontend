@@ -2,14 +2,14 @@
 import { RootState } from "@/store";
 import { removeFromCart } from "@/store/slices";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { LuShoppingCart } from "react-icons/lu";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
 export default function CartModal() {
   const cartData = useSelector((state: RootState) => state.cart);
-  console.log(cartData, "cart data");
-
+  const router = useRouter();
   const dispatch = useDispatch();
   return (
     <>
@@ -76,17 +76,29 @@ export default function CartModal() {
                   <div className="flex justify-between items-center p-6">
                     <div className="text-2xl font-semibold">Total</div>
                     <div className="text-xl font-semibold">
-                      {cartData.cartItems.reduce(
-                        (acc, item) => acc + item.price * item.quantity,
-                        0
-                      ).toLocaleString()}
+                      {cartData.cartItems
+                        .reduce(
+                          (acc, item) => acc + item.price * item.quantity,
+                          0
+                        )
+                        .toLocaleString()}
                       Ks
                     </div>
                   </div>
                   <div className="flex justify-center">
-                  <button className="btn w-[600px] bg-fuchsia-600 hover:bg-fuchsia-500 text-white border-none h-[60px]">
-                    Proceed to checkout
-                  </button>
+                    <button
+                      onClick={() => {
+                        router.push("/checkout");
+                        (
+                          document.getElementById(
+                            "cart_modal"
+                          ) as HTMLDialogElement
+                        ).close();
+                      }}
+                      className="btn w-[600px] bg-fuchsia-600 hover:bg-fuchsia-500 text-white border-none h-[60px]"
+                    >
+                      Proceed to checkout
+                    </button>
                   </div>
                 </div>
               </div>

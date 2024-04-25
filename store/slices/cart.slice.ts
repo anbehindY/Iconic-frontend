@@ -41,6 +41,9 @@ export const cartSlice = createSlice({
         (item) => item.variantId !== action.payload
       );
     },
+    removeAllFromCart: (state) => {
+      state.cartItems = [];
+    },
   },
 });
 
@@ -48,4 +51,5 @@ export default cartSlice.reducer;
 
 export const selectCart = (state: RootState) => state.cart;
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, removeAllFromCart } =
+  cartSlice.actions;

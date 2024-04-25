@@ -14,10 +14,15 @@ import { PiSealCheckFill } from "react-icons/pi";
 import { MdCancel } from "react-icons/md";
 import { RiInformationFill } from "react-icons/ri";
 import { BiChevronDown } from "react-icons/bi";
-import { useDispatch } from "react-redux";
-import { addToCart } from "@/store/slices";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, removeAllFromCart } from "@/store/slices";
+import { useRouter } from "next/navigation";
+import { RootState } from "@/store";
 
 export default function ProductDetail({ params }: { params: { id: string } }) {
+  const userData = useSelector((state: RootState) => state.user);
+  const cartData = useSelector((state: RootState) => state.cart);
+  const router = useRouter();
   const [productData, setProductData] = useState<ProductDetailsDto | null>(
     null
   );
@@ -39,7 +44,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
       setActiveImage(GetProductData.data.payload.images[0]);
       setActiveProcessor(GetProductData.data.payload.processors[0]);
     }
-  }, [GetProductData.isSuccess]);
+  }, [GetProductData.isSuccess, GetProductData.data]);
 
   useEffect(() => {
     const variantChecker = productData?.variants.some((item) => {
@@ -67,7 +72,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
       setVariant(null);
     }
     setQuantity(1);
-  }, [activeImage, activeStorage, productData, activeProcessor]);
+  }, [activeImage, activeStorage, productData, activeProcessor, isMac]);
 
   if (GetProductData.isPending) return <div>Loading...</div>;
   if (GetProductData.isError) return <div>Error...</div>;
@@ -322,18 +327,40 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
                   Add to cart
                 </button>
               </div>
-              <div className="w-full">
-                <button
-                  className="w-full h-12 bg-fuchsia-500 text-white rounded-full disabled:cursor-not-allowed"
-                  disabled={!variant || variant.inStock < quantity}
-                  onClick={() =>
-                    // dispatch(addToCart({ variantId: variant!.id, quantity: quantity }))
-                    console.log("buy now")
-                  }
-                >
-                  Log in to buy now
-                </button>
-              </div>
+              {!userData.accessToken ? (
+                <div className="w-full">
+                  <button
+                    className="w-full h-12 bg-fuchsia-500 text-white rounded-full disabled:cursor-not-allowed"
+                    onClick={() => router.push("/auth/login")}
+                  >
+                    Log in to buy now
+                  </button>
+                </div>
+              ) : (
+                <div className="w-full">
+                  <button
+                    className="w-full h-12 bg-fuchsia-500 text-white rounded-full disabled:cursor-not-allowed"
+                    disabled={!variant || variant.inStock < quantity}
+                    onClick={() => {
+                      dispatch(removeAllFromCart());
+                      dispatch(
+                        addToCart({
+                          variantId: variant!.id,
+                          quantity: quantity,
+                          image: activeImage && activeImage,
+                          name: productData.name,
+                          price: variant!.price,
+                          storage: activeStorage,
+                        })
+                      );
+
+                      router.push("/checkout");
+                    }}
+                  >
+                    Buy it now
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
