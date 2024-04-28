@@ -176,7 +176,7 @@ const SignUpPage: React.FC = () => {
           rows={3}
           variant={"textarea"}
           className={"py-2"}
-          label={"Address"}
+          label={"Shipping Address"}
           name={"address"}
           value={formData.address}
           placeholder="Enter your address"

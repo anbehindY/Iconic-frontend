@@ -1,14 +1,16 @@
 "use client";
 import { RootState } from "@/store";
-import { removeFromCart } from "@/store/slices";
+import { removeFromCart, selectUser } from "@/store/slices";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { LuShoppingCart } from "react-icons/lu";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { hasCookie } from "cookies-next";
 
 export default function CartModal() {
   const cartData = useSelector((state: RootState) => state.cart);
+  const userData = useSelector(selectUser);
   const router = useRouter();
   const dispatch = useDispatch();
   return (
@@ -79,26 +81,42 @@ export default function CartModal() {
                       {cartData.cartItems
                         .reduce(
                           (acc, item) => acc + item.price * item.quantity,
-                          0
+                          0,
                         )
                         .toLocaleString()}
                       Ks
                     </div>
                   </div>
                   <div className="flex justify-center">
-                    <button
-                      onClick={() => {
-                        router.push("/checkout");
-                        (
-                          document.getElementById(
-                            "cart_modal"
-                          ) as HTMLDialogElement
-                        ).close();
-                      }}
-                      className="btn w-[600px] bg-fuchsia-600 hover:bg-fuchsia-500 text-white border-none h-[60px]"
-                    >
-                      Proceed to checkout
-                    </button>
+                    {!hasCookie("iconic-fe-token") || !userData.id ? (
+                      <button
+                        className="btn btn-primary w-full font-normal"
+                        onClick={() => {
+                          router.push("/auth/login");
+                          (
+                            document.getElementById(
+                              "cart_modal",
+                            ) as HTMLDialogElement
+                          ).close();
+                        }}
+                      >
+                        Log in to buy now
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => {
+                          router.push("/checkout");
+                          (
+                            document.getElementById(
+                              "cart_modal",
+                            ) as HTMLDialogElement
+                          ).close();
+                        }}
+                        className="btn btn-primary w-full"
+                      >
+                        Proceed to Checkout
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

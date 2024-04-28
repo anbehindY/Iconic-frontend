@@ -14,7 +14,6 @@ import { useSelector } from "react-redux";
 import { selectUser } from "@/store/slices";
 
 export default function Home() {
-  const userInfo = useSelector(selectUser);
   const images = [
     "/images/all-products.jpeg",
     "/images/all-products-front.jpeg",
@@ -32,8 +31,6 @@ export default function Home() {
 
   if (GetAllCollectionsQuery.isError || GetNewArrivalsQuery.isError)
     return <ErrorPage />;
-
-  // console.log("userInfo", userInfo);
 
   return (
     <main className="flex flex-col items-center w-full">

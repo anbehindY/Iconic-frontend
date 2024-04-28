@@ -57,9 +57,11 @@ const LoginPage: React.FC = () => {
 
   return (
     <div
-      className={"w-full flex-col my-24 gap-8 flex justify-center items-center"}
+      className={
+        "w-full min-h-[calc(100vh-296px)] flex-col gap-8 flex justify-center items-center"
+      }
     >
-      <h2 className={"font-bold text-3xl"}>Sign In</h2>
+      <h2 className={"font-bold text-3xl"}>Log In</h2>
       <Form
         className={"w-full flex max-w-lg flex-col"}
         methods={methods}
@@ -107,7 +109,7 @@ const LoginPage: React.FC = () => {
         />
 
         <div className={"w-full flex flex-col mt-5"}>
-          <Form.SubmitButton>Sign In</Form.SubmitButton>
+          <Form.SubmitButton>Log In</Form.SubmitButton>
           <div className={"w-full text-sm flex items-center justify-end"}>
             <span>Don&apos;t have an account?</span>
             <Link className={"btn btn-link"} href={"/auth/signup"}>

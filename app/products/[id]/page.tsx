@@ -18,13 +18,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeAllFromCart } from "@/store/slices";
 import { useRouter } from "next/navigation";
 import { RootState } from "@/store";
+import LoadingPage from "@/app/loading";
+import ErrorPage from "@/app/error";
+import { hasCookie } from "cookies-next";
 
 export default function ProductDetail({ params }: { params: { id: string } }) {
+  const dispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.user);
   const cartData = useSelector((state: RootState) => state.cart);
   const router = useRouter();
   const [productData, setProductData] = useState<ProductDetailsDto | null>(
-    null
+    null,
   );
 
   const [activeImage, setActiveImage] = useState<ProductImageDto>();
@@ -32,13 +36,12 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
   const [activeProcessor, setActiveProcessor] = useState<string>();
   const [quantity, setQuantity] = useState<number>(1);
   const [variant, setVariant] = useState<ProductVariantDto | null>();
-  const dispatch = useDispatch();
   const GetProductData = useGetProductDetails(params.id);
 
   const isMac = productData?.name.toLowerCase().includes("macbook") === true;
+
   useEffect(() => {
     if (GetProductData.isSuccess) {
-      console.log("product", GetProductData.data);
       setProductData(GetProductData.data.payload);
       setActiveStorage(GetProductData.data.payload.storages[0]);
       setActiveImage(GetProductData.data.payload.images[0]);
@@ -57,7 +60,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
       const Variant = productData.variants.filter(
         (item) =>
           item.image.color === activeImage?.color &&
-          item.storage === activeStorage
+          item.storage === activeStorage,
       )[0];
       setVariant(Variant);
     } else if (productData && isMac) {
@@ -65,7 +68,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
         (item) =>
           item.image.color === activeImage?.color &&
           item.storage === activeStorage &&
-          item.processor === activeProcessor
+          item.processor === activeProcessor,
       )[0];
       setVariant(Variant);
     } else {
@@ -74,8 +77,10 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
     setQuantity(1);
   }, [activeImage, activeStorage, productData, activeProcessor, isMac]);
 
-  if (GetProductData.isPending) return <div>Loading...</div>;
-  if (GetProductData.isError) return <div>Error...</div>;
+  if (GetProductData.isPending) return <LoadingPage />;
+
+  if (GetProductData.isError) return <ErrorPage />;
+
   if (!productData)
     return (
       <div className="grid place-content-center">
@@ -130,7 +135,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
           <div className="flex flex-col">
             <p className="mb-2 text-slate-600">Apple</p>
             <h2 className="mb-2 text-4xl font-semibold">{productData.name}</h2>
-            <p className="text-fuchsia-600 font-medium text-lg">
+            <p className="text-secondary font-medium text-lg">
               {variant ? `${variant.price} Ks` : "not available!"}
             </p>
           </div>
@@ -141,10 +146,11 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
           <div className="flex flex-col gap-6">
             {/* color */}
             <div>
-              <p className="font-medium text-[15px]">
-                <span className="text-slate-500 text-sm">Color:</span>{" "}
-                {activeImage?.color || productData.images[0].color}
-              </p>
+              <div className="font-medium text-[15px]">
+                <span className={"text-slate-500 text-sm"}>Color :</span>
+                &nbsp;
+                <span>{activeImage?.color || productData.images[0].color}</span>
+              </div>
               <div className="flex mt-2">
                 {productData.images &&
                   productData.images.map((item, index) => {
@@ -172,7 +178,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
             {isMac && (
               <div>
                 <p className="font-medium text-[15px]">
-                  <span className="text-slate-500 text-sm">Processor:</span>{" "}
+                  <span className="text-slate-500 text-sm">Processor :</span>{" "}
                   {activeProcessor}
                 </p>
                 <div className="flex gap-2">
@@ -189,7 +195,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
                             {
                               "border-transparent bg-stone-200":
                                 activeProcessor === item,
-                            }
+                            },
                           )}
                         >
                           {item}
@@ -204,7 +210,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
             {/* storage */}
             <div>
               <p className="font-medium text-[15px]">
-                <span className="text-slate-500 text-sm">Storage:</span>{" "}
+                <span className="text-slate-500 text-sm">Storage :</span>{" "}
                 {activeStorage}
               </p>
               <div className="flex gap-2">
@@ -221,7 +227,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
                           {
                             "border-transparent bg-stone-200":
                               activeStorage === item,
-                          }
+                          },
                         )}
                       >
                         {item}
@@ -234,7 +240,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
 
             {/* quantity */}
             <div className="font-medium text-[15px] flex flex-col gap-2">
-              <span className="text-slate-500 text-sm">Quantity:</span>
+              <span className="text-slate-500 text-sm">Quantity :</span>
               <div className="w-36 h-12 border border-gray-400 flex justify-between px-6 items-center rounded-full transition-all duration-200 ease-in-out">
                 <button
                   className="text-2xl"
@@ -306,7 +312,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
             <div className="flex gap-4">
               <div className="w-full">
                 <button
-                  className="w-full h-12 border-[3px] border-black rounded-full disabled:cursor-not-allowed"
+                  className="w-full h-12 border border-black rounded-full disabled:cursor-not-allowed"
                   disabled={!variant || variant.inStock < quantity}
                   onClick={() => {
                     dispatch(
@@ -317,7 +323,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
                         name: productData.name,
                         price: variant!.price,
                         storage: activeStorage,
-                      })
+                      }),
                     );
                     (
                       document.getElementById("cart_modal") as HTMLDialogElement
@@ -327,10 +333,10 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
                   Add to cart
                 </button>
               </div>
-              {!userData.accessToken ? (
+              {!hasCookie("iconic-fe-token") || !userData.id ? (
                 <div className="w-full">
                   <button
-                    className="w-full h-12 bg-fuchsia-500 text-white rounded-full disabled:cursor-not-allowed"
+                    className="w-full h-12 bg-primary rounded-full disabled:cursor-not-allowed"
                     onClick={() => router.push("/auth/login")}
                   >
                     Log in to buy now
@@ -339,7 +345,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
               ) : (
                 <div className="w-full">
                   <button
-                    className="w-full h-12 bg-fuchsia-500 text-white rounded-full disabled:cursor-not-allowed"
+                    className="w-full h-12 bg-primary rounded-full disabled:cursor-not-allowed"
                     disabled={!variant || variant.inStock < quantity}
                     onClick={() => {
                       dispatch(removeAllFromCart());
@@ -351,7 +357,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
                           name: productData.name,
                           price: variant!.price,
                           storage: activeStorage,
-                        })
+                        }),
                       );
 
                       router.push("/checkout");

@@ -80,7 +80,7 @@ export default function PriceList() {
   ];
 
   return (
-    <section className="min-h-[calc(100vh-292px)] pt-8 pb-16 flex flex-col gap-8 w-full max-w-3xl mx-auto">
+    <section className="min-h-[calc(100vh-296px)] pt-8 pb-16 flex flex-col gap-8 w-full max-w-3xl mx-auto">
       <h1 className="text-2xl font-bold text-base-content/90">Price List</h1>
       <div role="tablist" className="tabs tabs-bordered">
         {GetAllCollectionsQuery.data.payload

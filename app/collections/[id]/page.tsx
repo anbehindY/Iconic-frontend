@@ -1,43 +1,36 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 import CollectionCard from "./_components/CollectionCard";
-import { use, useEffect, useState } from "react";
 import useGetProducts from "@/hooks/queryHooks/useGetProducts";
-import { ProductDto } from "@/types/products.types";
-import { useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
+import ErrorPage from "@/app/error";
+import LoadingPage from "@/app/loading";
 
-type CollectionDetailProps = {
-  params: { id: string };
-};
-
-export default function CollectionDetail({ params }: CollectionDetailProps) {
-  const collectionId = window.location.search.split("?")[1];
-  console.log(collectionId)
-  const [productsData, setProductsData] = useState<ProductDto[]>([]);
+export default function CollectionDetail() {
+  const searchParams = useSearchParams();
+  const params = useParams();
+  const collectionName = params.id as string;
+  const collectionId = searchParams.get("cid") as string;
 
   // fetch collections
   const GetProductsData = useGetProducts(collectionId!);
-  
-  useEffect(() => {
-    if(GetProductsData.isSuccess){
-      console.log(GetProductsData.data);
-      setProductsData(GetProductsData.data.payload);
-    }
-  }, [GetProductsData.isSuccess]);
 
-  if (GetProductsData.isPending) return <div>Loading...</div>;
-  if (GetProductsData.isError) return <div>Error...</div>;
+  if (GetProductsData.isPending) return <LoadingPage />;
+
+  if (GetProductsData.isError) return <ErrorPage />;
+
+  const productsData = GetProductsData.data.payload;
 
   return (
-    <section className="bg-white">
+    <section className="bg-white min-h-[calc(100vh-296px)]">
       <div className="relative w-full min-h-[350px]">
         {params && (
-          <Image src={`/gallery/shop_${params.id}.webp`} alt="demo" fill />
+          <Image src={`/gallery/shop_${collectionName}.webp`} alt="demo" fill />
         )}
         <div className="absolute top-28 left-[70px] text-white">
           <h2 className="font-sans text-5xl mb-2">
-            Shop {decodeURI(params.id)}
+            Shop {decodeURI(collectionName)}
           </h2>
           <h3 className="text-zinc-400/75 font-bold text-3xl">
             All models. Take your pick.
@@ -45,9 +38,13 @@ export default function CollectionDetail({ params }: CollectionDetailProps) {
         </div>
       </div>
       <div className="flex flex-wrap gap-x-8 gap-y-16 pt-8 pb-20 px-40">
-        {productsData.map((item) => (
-          <CollectionCard productData={item} key={item.id}/>
-        ))}
+        {productsData.length === 0 ? (
+          <p>No items available for {collectionName} yet!</p>
+        ) : (
+          productsData.map((item) => (
+            <CollectionCard productData={item} key={item.id} />
+          ))
+        )}
       </div>
     </section>
   );

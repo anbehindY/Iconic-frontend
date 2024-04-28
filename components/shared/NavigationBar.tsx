@@ -8,6 +8,10 @@ import { LuShoppingCart, LuUser } from "react-icons/lu";
 import { CollectionDto } from "@/types/collections.types";
 import { RootState } from "@/store";
 import { useSelector } from "react-redux";
+import { selectUser } from "@/store/slices";
+import { usePathname, useRouter } from "next/navigation";
+import { hasCookie } from "cookies-next";
+import { IoLogOutOutline } from "react-icons/io5";
 
 type NavigationBarProps = {
   collections: CollectionDto[];
@@ -15,6 +19,9 @@ type NavigationBarProps = {
 
 export default function NavigationBar({ collections }: NavigationBarProps) {
   const cartData = useSelector((state: RootState) => state.cart);
+  const userData = useSelector(selectUser);
+  const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <div className="drawer sticky top-0 z-50">
@@ -62,11 +69,11 @@ export default function NavigationBar({ collections }: NavigationBarProps) {
           <MegaMenu collections={collections} />
 
           {/* Prifile tab */}
-          <div className="flex gap-4 ml-auto">
-            <button className={"btn btn-ghost btn-circle btn-sm"}>
-              <IoMdSearch size={28} />
-            </button>
-            <button className={"btn btn-ghost btn-circle btn-sm"}>
+          <div className="flex gap-5 ml-auto">
+            <button
+              className={"btn btn-ghost btn-circle btn-sm"}
+              onClick={() => router.push("/profile")}
+            >
               <LuUser size={26} />
             </button>
             <button
@@ -84,25 +91,28 @@ export default function NavigationBar({ collections }: NavigationBarProps) {
               )}
               <LuShoppingCart size={24} />
             </button>
+            {hasCookie("iconic-fe-token") && userData.id ? (
+              <button
+                className={"btn btn-ghost btn-circle btn-sm"}
+                onClick={() => {
+                  router.push("/auth/login");
+                }}
+              >
+                <IoLogOutOutline size={26} />
+              </button>
+            ) : pathname.includes("auth/login") ||
+              pathname.includes("auth/signup") ? null : (
+              <button
+                className={"btn btn-primary btn-sm !h-10 px-6 font-normal"}
+                onClick={() => {
+                  router.push("/auth/login");
+                }}
+              >
+                Login
+              </button>
+            )}
           </div>
         </div>
-        {/* Page content here */}
-      </div>
-      <div className="drawer-side">
-        <label
-          htmlFor="my-drawer-3"
-          aria-label="close sidebar"
-          className="drawer-overlay"
-        ></label>
-        <ul className="menu p-4 w-80 min-h-full bg-base-200">
-          {/* Sidebar content here */}
-          <li>
-            <a>Sidebar Item 1</a>
-          </li>
-          <li>
-            <a>Sidebar Item 2</a>
-          </li>
-        </ul>
       </div>
     </div>
   );

@@ -61,11 +61,11 @@ export default function NewArrivals({
           {data.map((item) => {
             return (
               <div
-                className="card bg-white shadow-light m-0 p-0 w-[400px] rounded-lg group"
+                className="card bg-white shadow-light m-0 p-0 w-[400px] rounded-lg group cursor-pointer"
                 key={item.id}
                 onClick={() => router.push(`/products/${item.product.id}`)}
               >
-                <div className="relative w-full h-40">
+                <div className="relative w-full h-60">
                   <Image
                     src={process.env.STORAGE_URL + "/" + item.image.imageId}
                     alt="Shoes"
@@ -75,12 +75,12 @@ export default function NewArrivals({
                       borderRadius: "0.5rem 0.5rem 0 0",
                     }}
                   />
-                  <button
-                    type="button"
-                    className="border-2 text-xs font-medium border-black rounded-full p-2 absolute bottom-0 right-2 z-50 invisible opacity-0 group-hover:visible group-hover:opacity-100 group-hover:-translate-y-2 transition-all translate-y-0 duration-300 ease-in-out"
-                  >
-                    + Quick add
-                  </button>
+                  {/*<button*/}
+                  {/*  type="button"*/}
+                  {/*  className="border-2 text-xs font-medium border-black rounded-full p-2 absolute bottom-0 right-2 z-50 invisible opacity-0 group-hover:visible group-hover:opacity-100 group-hover:-translate-y-2 transition-all translate-y-0 duration-300 ease-in-out"*/}
+                  {/*>*/}
+                  {/*  + Quick add*/}
+                  {/*</button>*/}
                 </div>
                 <div className="card-body">
                   <h2 className="text-base font-medium">{item.product.name}</h2>
@@ -88,7 +88,7 @@ export default function NewArrivals({
                     {item.price} Ks
                   </p>
                 </div>
-                <div className="text-purple-700 text-sm absolute top-4 left-4">
+                <div className="text-primary text-sm absolute top-4 left-4">
                   NEW
                 </div>
               </div>

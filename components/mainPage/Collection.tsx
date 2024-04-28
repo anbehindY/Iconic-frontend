@@ -10,10 +10,13 @@ export default function Collection({ item }: { item: CollectionDto }) {
     <div
       className="card w-44 h-48 bg-base-100 shadow-light cursor-pointer p-6 group"
       key={item.id}
-      onClick={() => router.push(`/collections/${item.name}?${item.id}`)}
+      onClick={() => router.push(`/collections/${item.name}?cid=${item.id}`)}
     >
       <figure className="transition-transform duration-300 ease-in-out group-hover:scale-105">
-        <img src={`/icons/${item.name.toLowerCase()}_collection.avif`} alt="Shoes" />
+        <img
+          src={`/icons/${item.name.toLowerCase()}_collection.avif`}
+          alt="Shoes"
+        />
       </figure>
       <div className="mx-auto mt-auto flex relative">
         <h2 className="transition-all duration-300 ease-in-out text-sm mr-1 ml-6 whitespace-nowrap group-hover:ml-2">
