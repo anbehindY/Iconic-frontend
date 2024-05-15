@@ -1,12 +1,20 @@
+import React from "react";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
-import { PrimeReactProvider } from "primereact/api";
-import "primeflex/primeflex.css";
-import Promotion from "./components/Banner";
-import NavigationBar from "./components/NavigationBar";
+import QueryWrapper from "@/components/providers/QueryWrapper";
+import ToastWrapper from "@/components/providers/ToastWrapper";
+import StoreProvider from "@/components/providers/StoreProvider";
+import MainLayout from "@/components/shared/MainLayout";
+import { headers } from "next/headers";
+import "react-toastify/dist/ReactToastify.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-poppins",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Iconic",
@@ -18,15 +26,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isAuthPage = headers().get("referer")?.includes("auth");
+
   return (
-    <PrimeReactProvider>
-      <html lang="en">
-        <body className={inter.className}>
-          {/* <Promotion /> */}
-          <NavigationBar />
-          {children}
-        </body>
-      </html>
-    </PrimeReactProvider>
+    <html lang="en" data-theme="cupcake">
+      <QueryWrapper>
+        <StoreProvider>
+          <body className={`${poppins.variable} antialiased`}>
+            <ToastWrapper>
+              <MainLayout>{children}</MainLayout>
+            </ToastWrapper>
+          </body>
+        </StoreProvider>
+      </QueryWrapper>
+    </html>
   );
 }

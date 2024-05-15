@@ -1,27 +1,60 @@
 "use client";
 
-import "primereact/resources/themes/lara-light-cyan/theme.css";
-import ImageSlider from "./components/ImageSlider";
-import CategoryCard from "./components/CategoryCard";
-import MainCard from "./components/MainCard";
+import React from "react";
+import Carousel from "../components/mainPage/Carousel";
+import Collections from "../components/mainPage/Collections";
+import Cards from "../components/mainPage/Cards";
+import NewArrivals from "../components/mainPage/NewArrivals";
+import { IoArrowDownCircleOutline } from "react-icons/io5";
+import useGetCollections from "@/hooks/queryHooks/useGetCollections";
+import LoadingPage from "@/app/loading";
+import ErrorPage from "@/app/error";
+import useGetNewArrivals from "@/hooks/queryHooks/useGetNewArrivals";
+import { useSelector } from "react-redux";
+import { selectUser } from "@/store/slices";
 
 export default function Home() {
+  const images = [
+    "/images/all-products.jpeg",
+    "/images/all-products-front.jpeg",
+    "/images/macbook.webp",
+    "/images/iwatch.jpg",
+    "/images/ipad-hero.webp",
+  ];
+
+  const GetAllCollectionsQuery = useGetCollections();
+
+  const GetNewArrivalsQuery = useGetNewArrivals();
+
+  if (GetAllCollectionsQuery.isPending || GetNewArrivalsQuery.isPending)
+    return <LoadingPage />;
+
+  if (GetAllCollectionsQuery.isError || GetNewArrivalsQuery.isError)
+    return <ErrorPage />;
+
   return (
-    <main className="flex-col flex">
-      <ImageSlider />
-      <section className="flex justify-center p-8 gap-4 bg-slate-100/55">
-        {[0, 1, 2, 3, 4, 5].map((item) => (
-          <CategoryCard key={item} />
-        ))}
-      </section>
-      <section className="flex flex-col items-center">
-        <h2 className="pt-8 text-4xl font-bold">Explore and aquire your desired products now</h2>
-        <div className="flex flex-wrap justify-center gap-6 p-8">
-        {[0,1,2,3].map( item => (
-          <MainCard key={item} />
-        ))}
+    <main className="flex flex-col items-center w-full">
+      {/* Image Carousel */}
+      {images && (
+        <div className={"relative w-full bg-slate-300/20"}>
+          <Carousel images={images} />
+          <IoArrowDownCircleOutline
+            size={36}
+            className={
+              "absolute text-base-content/90 animate-bounce top-full mt-8 left-1/2 translate-x-[50%]"
+            }
+          />
         </div>
-      </section>
+      )}
+
+      {/* Collections */}
+      <Collections collections={GetAllCollectionsQuery.data.payload} />
+
+      {/* Cards */}
+      <Cards />
+
+      {/* New Arrivals */}
+      <NewArrivals data={GetNewArrivalsQuery.data.payload} />
     </main>
   );
 }

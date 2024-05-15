@@ -1,46 +1,62 @@
-/* @tailwind base;
+@tailwind base;
 @tailwind components;
-@tailwind utilities; */
+@tailwind utilities;
 
-
-@layer tailwind-base, primereact, tailwind-utilities;
-
-@layer tailwind-base {
-  @tailwind base;
-}
-
-@layer tailwind-utilities {
-  @tailwind components;
-  @tailwind utilities;
-}
-
-
-/* :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
+/*@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap");*/
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-poppins);
+}
+
+.App-header {
+  font-size: 1rem;
+  text-align: center;
+  /*font-family: "Oswald", sans-serif;*/
+  padding-bottom: 2rem;
+}
+.carousel-images {
+  position: relative;
+  height: 600px;
+  overflow: hidden;
+  width: 100%;
+}
+.carousel-images img {
+  width: 100%;
+  height: 100%;
+}
+.slide_direction {
+  display: flex;
+  justify-content: space-between;
+}
+.left,
+.right {
+  background-color: #fb666675;
+  color: #fff;
+  padding: 10px 8px 8px 13px;
+  margin: 0 20px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 10px;
+  height: 25px;
+  width: 25px;
+}
+.left {
+  left: 0;
+}
+.right {
+  right: 0;
+}
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-} 
+}
+
+.slick-slide > div:nth-child(1) {
+  margin: 30px 40px;
+}
