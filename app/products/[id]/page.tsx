@@ -1,26 +1,26 @@
 "use client";
 
 import ColorPicker from "@/app/collections/[id]/_components/ColorPicker";
+import ErrorPage from "@/app/error";
+import LoadingPage from "@/app/loading";
 import useGetProductDetails from "@/hooks/queryHooks/useGetProductDetails";
+import { RootState } from "@/store";
+import { addToCart, removeAllFromCart } from "@/store/slices";
 import {
   ProductDetailsDto,
   ProductImageDto,
   ProductVariantDto,
 } from "@/types/products.types";
 import clsx from "clsx";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { PiSealCheckFill } from "react-icons/pi";
-import { MdCancel } from "react-icons/md";
-import { RiInformationFill } from "react-icons/ri";
-import { BiChevronDown } from "react-icons/bi";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeAllFromCart } from "@/store/slices";
-import { useRouter } from "next/navigation";
-import { RootState } from "@/store";
-import LoadingPage from "@/app/loading";
-import ErrorPage from "@/app/error";
 import { hasCookie } from "cookies-next";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { BiChevronDown } from "react-icons/bi";
+import { MdCancel } from "react-icons/md";
+import { PiSealCheckFill } from "react-icons/pi";
+import { RiInformationFill } from "react-icons/ri";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function ProductDetail({ params }: { params: { id: string } }) {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
   const cartData = useSelector((state: RootState) => state.cart);
   const router = useRouter();
   const [productData, setProductData] = useState<ProductDetailsDto | null>(
-    null,
+    null
   );
 
   const [activeImage, setActiveImage] = useState<ProductImageDto>();
@@ -60,7 +60,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
       const Variant = productData.variants.filter(
         (item) =>
           item.image.color === activeImage?.color &&
-          item.storage === activeStorage,
+          item.storage === activeStorage
       )[0];
       setVariant(Variant);
     } else if (productData && isMac) {
@@ -68,7 +68,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
         (item) =>
           item.image.color === activeImage?.color &&
           item.storage === activeStorage &&
-          item.processor === activeProcessor,
+          item.processor === activeProcessor
       )[0];
       setVariant(Variant);
     } else {
@@ -108,7 +108,10 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
                   onClick={() => setActiveImage(item)}
                 >
                   <Image
-                    src={`${process.env.STORAGE_URL}/${item.imageId}`}
+                    src={
+                      `${process.env.STORAGE_URL}/${item.imageId}/view?project=${process.env.APPWRITE_PROJECT_ID}` ||
+                      "/images/placeholder-image.webp"
+                    }
                     alt="demo"
                     fill
                     style={{ objectFit: isMac ? "contain" : "cover" }}
@@ -119,9 +122,12 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
           </div>
           <div className="relative shadow-md rounded-2xl aspect-square min-w-[500px]">
             <Image
-              src={`${process.env.STORAGE_URL}/${
-                activeImage?.imageId || productData.images[0].imageId
-              }`}
+              src={
+                `${process.env.STORAGE_URL}/${
+                  activeImage?.imageId || productData.images[0].imageId
+                }/view?project=${process.env.APPWRITE_PROJECT_ID}` ||
+                "/images/placeholder-image.webp"
+              }
               alt="demo"
               fill
               style={{ objectFit: isMac ? "contain" : "cover" }}
@@ -195,7 +201,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
                             {
                               "border-transparent bg-stone-200":
                                 activeProcessor === item,
-                            },
+                            }
                           )}
                         >
                           {item}
@@ -227,7 +233,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
                           {
                             "border-transparent bg-stone-200":
                               activeStorage === item,
-                          },
+                          }
                         )}
                       >
                         {item}
@@ -323,7 +329,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
                         name: productData.name,
                         price: variant!.price,
                         storage: activeStorage,
-                      }),
+                      })
                     );
                     (
                       document.getElementById("cart_modal") as HTMLDialogElement
@@ -357,7 +363,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
                           name: productData.name,
                           price: variant!.price,
                           storage: activeStorage,
-                        }),
+                        })
                       );
 
                       router.push("/checkout");

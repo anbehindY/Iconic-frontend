@@ -1,15 +1,13 @@
 "use client";
 
 import AddLabel from "@/components/shared/AddLabel";
-import { RootState } from "@/store";
-import { useDispatch, useSelector } from "react-redux";
-import Image from "next/image";
+import useCreateOrder from "@/hooks/queryHooks/useCreateOrder";
+import useGetPaymentTypes from "@/hooks/queryHooks/useGetPaymentTypes";
 import { removeAllFromCart, selectCart, selectUser } from "@/store/slices";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import useCreateOrder from "@/hooks/queryHooks/useCreateOrder";
-import Form from "@/components/shared/Form";
-import useGetPaymentTypes from "@/hooks/queryHooks/useGetPaymentTypes";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 export default function Checkout() {
@@ -115,7 +113,10 @@ export default function Checkout() {
                 <div key={item.variantId} className="flex gap-6 items-center">
                   <div className="relative w-24 h-24">
                     <Image
-                      src={`${process.env.STORAGE_URL}/${item.image?.imageId}`}
+                      src={
+                        `${process.env.STORAGE_URL}/${item.image?.imageId}/view?project=${process.env.APPWRITE_PROJECT_ID}` ||
+                        "/images/placeholder-image.webp"
+                      }
                       fill
                       style={{ objectFit: "cover" }}
                       alt={item.name}

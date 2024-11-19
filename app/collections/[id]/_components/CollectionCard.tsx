@@ -1,11 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import ColorPicker from "./ColorPicker";
+import { ProductDto, ProductImageDto } from "@/types/products.types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ProductDto, ProductImageDto } from "@/types/products.types";
-
+import { useState } from "react";
+import ColorPicker from "./ColorPicker";
 
 export type CollectionCardProps = {
   productData: ProductDto;
@@ -21,9 +20,12 @@ export default function CollectionCard({ productData }: CollectionCardProps) {
         onClick={() => router.push(`/products/${productData.id}`)}
       >
         <Image
-          src={`${process.env.STORAGE_URL}/${
-            activeImage?.imageId || productData.images[0].imageId
-          }`}
+          src={
+            `${process.env.STORAGE_URL}/${
+              activeImage?.imageId || productData.images[0].imageId
+            }/view?project=${process.env.APPWRITE_PROJECT_ID}` ||
+            "/images/placeholder-image.webp"
+          }
           alt="demo"
           fill
           style={{ objectFit: "cover" }}
