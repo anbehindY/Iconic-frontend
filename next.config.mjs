@@ -13,6 +13,7 @@ const nextConfig = {
   env: {
     API_URL: process.env.API_URL,
     STORAGE_URL: process.env.STORAGE_URL,
+    APPWRITE_PROJECT_ID: process.env.APPWRITE_PROJECT_ID,
   },
 };
 
