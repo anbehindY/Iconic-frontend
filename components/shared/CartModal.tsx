@@ -1,12 +1,11 @@
 "use client";
 import { RootState } from "@/store";
 import { removeFromCart, selectUser } from "@/store/slices";
+import { hasCookie } from "cookies-next";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { LuShoppingCart } from "react-icons/lu";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { hasCookie } from "cookies-next";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function CartModal() {
   const cartData = useSelector((state: RootState) => state.cart);
@@ -41,7 +40,10 @@ export default function CartModal() {
                     >
                       <div className="relative w-24 h-24">
                         <Image
-                          src={`${process.env.STORAGE_URL}/${item.image?.imageId}`}
+                          src={
+                            `${process.env.STORAGE_URL}/${item.image?.imageId}/view?project=${process.env.APPWRITE_PROJECT_ID}` ||
+                            "/images/placeholder-image.webp"
+                          }
                           fill
                           style={{ objectFit: "cover" }}
                           alt={item.name}
@@ -81,7 +83,7 @@ export default function CartModal() {
                       {cartData.cartItems
                         .reduce(
                           (acc, item) => acc + item.price * item.quantity,
-                          0,
+                          0
                         )
                         .toLocaleString()}
                       Ks
@@ -95,7 +97,7 @@ export default function CartModal() {
                           router.push("/auth/login");
                           (
                             document.getElementById(
-                              "cart_modal",
+                              "cart_modal"
                             ) as HTMLDialogElement
                           ).close();
                         }}
@@ -108,7 +110,7 @@ export default function CartModal() {
                           router.push("/checkout");
                           (
                             document.getElementById(
-                              "cart_modal",
+                              "cart_modal"
                             ) as HTMLDialogElement
                           ).close();
                         }}

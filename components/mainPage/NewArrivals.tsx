@@ -1,14 +1,12 @@
 "use client";
 
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import React from "react";
-import Slider from "react-slick";
-import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
-import { CustomArrowProps } from "react-slick";
+import { NewArrivalProductVariantDto } from "@/types/products.types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { NewArrivalProductVariantDto } from "@/types/products.types";
+import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
+import Slider, { CustomArrowProps } from "react-slick";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 
 type NewArrivalsProps = {
   data: NewArrivalProductVariantDto[];
@@ -67,7 +65,10 @@ export default function NewArrivals({
               >
                 <div className="relative w-full h-60">
                   <Image
-                    src={process.env.STORAGE_URL + "/" + item.image.imageId}
+                    src={
+                      `${process.env.STORAGE_URL}/${item.image?.imageId}/view?project=${process.env.APPWRITE_PROJECT_ID}` ||
+                      "/images/placeholder-image.webp"
+                    }
                     alt="Shoes"
                     fill
                     style={{

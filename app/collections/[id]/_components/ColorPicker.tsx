@@ -32,7 +32,10 @@ export default function ColorPicker({
       onClick={() => onClickHanlder(imageData)}
     >
       <Image
-        src={`${process.env.STORAGE_URL}/${imageData.imageId}`}
+        src={
+          `${process.env.STORAGE_URL}/${imageData.imageId}/view?project=${process.env.APPWRITE_PROJECT_ID}` ||
+          "/images/placeholder-image.webp"
+        }
         alt={"product image"}
         fill
         className="rounded-lg"
